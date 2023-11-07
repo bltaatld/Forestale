@@ -24,7 +24,6 @@ public class PlayerAttack : MonoBehaviour
             Pcontroller.animator.SetTrigger("IsAttack");
             Pcontroller.moveSpeed = 0f;
             attackTimer = 0f;
-            Debug.Log("Attack!!");
         }
 
         else if (attackTimer >= moveAfterAttackDelay)
