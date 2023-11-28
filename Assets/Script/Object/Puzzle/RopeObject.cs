@@ -15,8 +15,10 @@ public class RopeObject : MonoBehaviour
     public GameObject LinePrefab;
     public GameObject Line;
     public float canMoveDistance;
+    public float flyForce; // 날아가는 힘
+    public float blockMovementTime; // 차단할 시간
 
-    void DrawLine(LineRenderer lineRenderer,Vector3 start, Vector3 end)
+    void DrawLine(LineRenderer lineRenderer, Vector3 start, Vector3 end)
     {
         // 선 그리기
         lineRenderer.positionCount = 2; // 선의 점 개수 (시작과 끝)
@@ -30,7 +32,7 @@ public class RopeObject : MonoBehaviour
         {
             if (ropeMain != null && Line != null)
             {
-                DrawLine(Line.GetComponent<LineRenderer>(),ropeMain.transform.position, gameObject.transform.position);
+                DrawLine(Line.GetComponent<LineRenderer>(), ropeMain.transform.position, gameObject.transform.position);
             }
 
             float distance = Vector2.Distance(ropeMain.transform.position, gameObject.transform.position);
@@ -39,6 +41,14 @@ public class RopeObject : MonoBehaviour
                 isHold = false;
                 playerController.moveSpeed = 6f;
                 Destroy(Line);
+
+                // 날아가는 힘을 적용하여 오브젝트를 날아가게 함
+                Vector3 flyDirection = (ropeMain.transform.position - gameObject.transform.position).normalized;
+                float flyDistance = Mathf.Min(canMoveDistance, distance);
+                Vector3 targetPosition = gameObject.transform.position + flyDirection * (flyDistance * 2);
+
+                StartCoroutine(BlockMovementAndMove(targetPosition));
+
             }
         }
 
@@ -50,8 +60,8 @@ public class RopeObject : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Collider2D pickUpItem = Physics2D.OverlapCircle(transform.position + currnetDirection, 0.2f, pickUpMask);
-            
-            if(ropeMain == null)
+
+            if (ropeMain == null)
             {
                 ropeMain = pickUpItem;
             }
@@ -64,13 +74,24 @@ public class RopeObject : MonoBehaviour
             }
         }
 
-
         if (Input.GetKeyUp(KeyCode.Z))
         {
             playerController.moveSpeed = 6f;
             isHold = false;
             Destroy(Line);
         }
+    }
 
+    IEnumerator BlockMovementAndMove(Vector3 targetPosition)
+    {
+        // 일정 시간 동안 움직임 차단
+        playerController.canMove = false;
+
+        gameObject.transform.position = targetPosition;
+
+        // 일정 시간 기다린 후에 움직임 복원
+        yield return new WaitForSeconds(blockMovementTime);
+
+        playerController.canMove = true;
     }
 }

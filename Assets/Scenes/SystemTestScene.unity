@@ -6543,7 +6543,7 @@ GameObject:
   - component: {fileID: 1325348716}
   m_Layer: 6
   m_Name: Stone
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6674,13 +6674,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155d85355342d0d4a99a446458c46773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 7501915947194949048}
+  destroyEffect: {fileID: 58264775758431564, guid: 0739768184adb124db66091a2d2b402f, type: 3}
   holdSpot: {fileID: 1947155295}
   pickUpMask:
     serializedVersion: 2
     m_Bits: 64
-  destroyEffect: {fileID: 58264775758431564, guid: 0739768184adb124db66091a2d2b402f, type: 3}
   Direction: {x: 0, y: 0, z: 0}
-  playerController: {fileID: 7501915947194949048}
+  throwSpeed: 0.08
+  throwPower: 2
+  isPush: 0
 --- !u!114 &1590364653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6704,6 +6707,8 @@ MonoBehaviour:
   LinePrefab: {fileID: 1921767870157249062, guid: 90d010b41c047f140b97012699b4b806, type: 3}
   Line: {fileID: 0}
   canMoveDistance: 3
+  flyForce: 2
+  blockMovementTime: 1
 --- !u!1 &1947155294
 GameObject:
   m_ObjectHideFlags: 0
@@ -6774,6 +6779,7 @@ MonoBehaviour:
   rollDuration: 0.15
   animator: {fileID: 7501915947194949055}
   moveDirection: {x: 0, y: 0, z: 0}
+  canMove: 1
 --- !u!212 &7501915947194949049
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class ThrowObject : MonoBehaviour
 {
+    public PlayerController playerController;
+    public GameObject destroyEffect;
     public Transform holdSpot;
     public LayerMask pickUpMask;
-    public GameObject destroyEffect;
     public Vector3 Direction;
-    private GameObject itemHolding;
-    public PlayerController playerController;
+    public float throwSpeed;
+    public float throwPower;
+    public bool isPush;
+
     private float epsilon = 0.0001f;
+    private GameObject itemHolding;
 
     void Update()
     {
@@ -57,15 +61,31 @@ public class ThrowObject : MonoBehaviour
     IEnumerator ThrowItem(GameObject item)
     {
         Vector3 startPoint = item.transform.position;
-        Vector3 endPoint = transform.position + Direction * 2;
+        Vector3 endPoint = transform.position + Direction * throwPower;
         item.transform.parent = null;
         for (int i = 0; i < 25; i++)
         {
-            item.transform.position = Vector3.Lerp(startPoint, endPoint, i * .04f);
+            item.transform.position = Vector3.Lerp(startPoint, endPoint, i * throwSpeed);
             yield return null;
         }
         if (item.GetComponent<Rigidbody2D>())
             item.GetComponent<Rigidbody2D>().simulated = true;
         Instantiate(destroyEffect, item.transform.position, Quaternion.identity);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Rock"))
+        {
+            isPush = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Rock"))
+        {
+            isPush = false;
+        }
     }
 }
