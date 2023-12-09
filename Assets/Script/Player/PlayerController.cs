@@ -7,8 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerAttack pAttack;
     public float moveSpeed; // 플레이어 이동 속도
-    public float rollDistance = 3f; // 구르기 이동 거리
-    public float rollDuration = 0.5f; // 구르기 지속 시간
+    public float rollDuration = 1f;
+    public float rollSpeed = 10f;
+    public Rigidbody2D rb;
     public Animator animator; // Animator 컴포넌트 참조
     public Vector3 moveDirection;
     public bool canMove;
@@ -28,13 +29,6 @@ public class PlayerController : MonoBehaviour
             if (!pAttack.isAttack)
             {
                 transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-            }
-
-            // 구르기 입력 감지
-            if (Input.GetKeyDown(KeyCode.C) && !pAttack.isAttack && moveDirection != Vector3.zero)
-            {
-                // 구르기 시작
-                StartCoroutine(Roll(moveDirection));
             }
 
             if (moveDirection != Vector3.zero && !pAttack.isAttack)
@@ -70,21 +64,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 구르기 코루틴
-    public IEnumerator Roll(Vector3 rollDir)
+    private void Update()
+    {
+        if(canMove)
+        {
+            // 구르기 입력 감지
+            if (Input.GetKeyDown(KeyCode.C) && !pAttack.isAttack && moveDirection != Vector3.zero)
+            {
+                StartCoroutine(Roll());
+            }
+        }
+    }
+
+    public IEnumerator Roll()
     {
         animator.SetTrigger("IsRoll");
-
-        // 구르기 이동
-        Vector3 rollDirection = rollDir; // 현재 보고 있는 방향으로 이동
-        Vector3 targetPosition = transform.position + rollDirection * rollDistance;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < rollDuration)
-        {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, elapsedTime / rollDuration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+        rb.velocity = new Vector2(moveDirection.x * rollSpeed, moveDirection.y * rollSpeed);
+        yield return new WaitForSeconds(rollDuration);
     }
 }

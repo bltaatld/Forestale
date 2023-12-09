@@ -2908,6 +2908,11 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!50 &1079403065 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 7501915947770287206, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
+  m_PrefabInstance: {fileID: 7501915947766597318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1094940344
 GameObject:
   m_ObjectHideFlags: 0
@@ -13435,6 +13440,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7501915947770287192, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
+      propertyPath: attackAfterAttackDelay
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7501915947770287193, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
       propertyPath: m_Size.y
       value: 0.6197945
@@ -13488,12 +13497,40 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7501915947770287196, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1079403065}
+    - target: {fileID: 7501915947770287196, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
       propertyPath: canMove
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501915947770287196, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
+      propertyPath: rollForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501915947770287196, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
+      propertyPath: rollSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501915947770287196, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
+      propertyPath: rollCoolDown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501915947770287196, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
+      propertyPath: rollDuration
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7501915947770287199, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501915947770287206, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
+      propertyPath: m_LinearDrag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501915947770287206, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
+      propertyPath: m_AngularDrag
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0cfaed0b3eb9304597c510b386a1a1f, type: 3}
