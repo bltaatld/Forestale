@@ -425,10 +425,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4463b39269ff9e9459dbda04187a9c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nowData:
+    Icon: {fileID: 0}
+    Name: 
+    Explanation: 
+    Type: 0
+    CostRequired: 0
   iconImage: {fileID: 0}
   nameText: {fileID: 0}
   explanationText: {fileID: 0}
   costDisplayer:
     costObject: {fileID: 1178283309115025176, guid: 2093c8d44ccaaff448801e72ee2bcb28, type: 3}
     costDistance: 100
-    costCount: 0
+    costCount: 3
