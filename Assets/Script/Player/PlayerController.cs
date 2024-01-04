@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     public Vector3 moveDirection;
     public bool canMove;
 
+    public PlayerStatus playerStatus;
+    public ExtraStatus extraPlayerStatus;
+
     void FixedUpdate()
     {
         if (canMove)

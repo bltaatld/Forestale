@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1393439921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1393439922}
+  m_Layer: 0
+  m_Name: HoldSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1393439922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393439921}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.01, y: 0.99, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7501915947770287194}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7501915947770287199
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,6 +46,8 @@ GameObject:
   - component: {fileID: 7501915947770287195}
   - component: {fileID: 7501915947770287193}
   - component: {fileID: 7501915947770287206}
+  - component: {fileID: 483420506}
+  - component: {fileID: 483420509}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -35,6 +68,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7501915948682872031}
+  - {fileID: 1393439922}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -104,10 +138,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pAttack: {fileID: 7501915947770287192}
   moveSpeed: 6
-  rollDistance: 1.5
   rollDuration: 0.15
+  rollSpeed: 15
+  rb: {fileID: 7501915947770287206}
   animator: {fileID: 7501915947770287195}
   moveDirection: {x: 0, y: 0, z: 0}
+  canMove: 1
 --- !u!114 &7501915947770287192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +180,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &7501915947770287193
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -184,14 +219,61 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 7
+  m_AngularDrag: 7
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &483420506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7501915947770287199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a025d45dbbbb9fb4ea75a798430bfa7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 7501915947770287196}
+  pickUpMask:
+    serializedVersion: 2
+    m_Bits: 128
+  currnetDirection: {x: 0, y: 0, z: 0}
+  savedDirection: {x: 0, y: 0, z: 0}
+  isHold: 0
+  ropeMain: {fileID: 0}
+  LinePrefab: {fileID: 1921767870157249062, guid: 90d010b41c047f140b97012699b4b806, type: 3}
+  Line: {fileID: 0}
+  canMoveDistance: 3
+  flyForce: 2
+  blockMovementTime: 1
+--- !u!114 &483420509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7501915947770287199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155d85355342d0d4a99a446458c46773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 7501915947770287196}
+  destroyEffect: {fileID: 58264775758431564, guid: 0739768184adb124db66091a2d2b402f, type: 3}
+  holdSpot: {fileID: 1393439922}
+  pickUpMask:
+    serializedVersion: 2
+    m_Bits: 64
+  Direction: {x: 0, y: 0, z: 0}
+  throwSpeed: 0.08
+  throwPower: 2
+  isPush: 0
 --- !u!1 &7501915948682872030
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +285,7 @@ GameObject:
   - component: {fileID: 7501915948682872031}
   - component: {fileID: 7501915948682872028}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
