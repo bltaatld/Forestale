@@ -3,8 +3,11 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerStatus
 {
+    public int LV;
+    public int EXP;
     public int HP;
     public int MP;
+    public int WP;
     public int STR;
     public int DEX;
     public int INT;

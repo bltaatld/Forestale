@@ -13,9 +13,20 @@ public class PlayerController : MonoBehaviour
     public Animator animator; // Animator 컴포넌트 참조
     public Vector3 moveDirection;
     public bool canMove;
+    [SerializeField] private bool m_isRolling;
 
     public PlayerStatus playerStatus;
     public ExtraStatus extraPlayerStatus;
+
+    private void Update()
+    {
+        if (!canMove) {  return; }
+
+            if (Input.GetKeyDown(KeyCode.C) && !pAttack.isAttack && moveDirection != Vector3.zero && !m_isRolling)
+        {
+            StartCoroutine(Roll());
+        }
+    }
 
     void FixedUpdate()
     {
@@ -33,6 +44,8 @@ public class PlayerController : MonoBehaviour
             {
                 transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
             }
+
+           
 
             if (moveDirection != Vector3.zero && !pAttack.isAttack)
             {
@@ -67,22 +80,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if(canMove)
-        {
-            // 구르기 입력 감지
-            if (Input.GetKeyDown(KeyCode.C) && !pAttack.isAttack && moveDirection != Vector3.zero)
-            {
-                StartCoroutine(Roll());
-            }
-        }
-    }
-
     public IEnumerator Roll()
     {
-        animator.SetTrigger("IsRoll");
+        m_isRolling = true;
+
+        Debug.Log("Rolled");
         rb.velocity = new Vector2(moveDirection.x * rollSpeed, moveDirection.y * rollSpeed);
+        animator.SetTrigger("IsRoll");
         yield return new WaitForSeconds(rollDuration);
+
+        m_isRolling = false;
     }
 }

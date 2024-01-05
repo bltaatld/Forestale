@@ -5,40 +5,59 @@ using UnityEngine;
 public class TE_EnemyChase : MonoBehaviour
 {
     [Header("Status")]
-    public int enemyHealth;
+    public EnemyStatus enemyStatus;
+    private int m_enemyHealth;
+    private int m_enemyDamage;
 
     [Header("Logic Component")]
     public GameObject enemyObject;
+    public Animator animator;
+    public BoxCollider2D enemyCollider;
+    public EnemyChase enemyChase;
     public PlayerController Player;
+
+    private void Start()
+    {
+        m_enemyHealth = enemyStatus.Health;
+        m_enemyDamage = enemyStatus.Damage;
+    }
 
     private void Update()
     {
-        if(enemyHealth <= 0)
+        if(m_enemyHealth <= 0)
         {
-            DeathEffect();
+            animator.SetTrigger("IsDead");
         }
     }
 
-    void DeathEffect()
+    public void DeathEffect()
     {
-        Destroy(enemyObject);
+        enemyCollider.enabled = false;
+        enemyChase.enabled = false;
+        Player.playerStatus.EXP += enemyStatus.Exp;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void DisActive()
     {
-        if (collision.collider.CompareTag("Attack"))
+        enemyObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Attack"))
         {
-            if(enemyHealth > 0)
+            if (m_enemyHealth > 0)
             {
-                enemyHealth -= 1;
-                Debug.Log(gameObject + " damaged! " + "CurrentHealth= " + enemyHealth);
+                animator.SetTrigger("IsHit");
+                m_enemyHealth -= 1;
+                Debug.Log(gameObject + " damaged! " + "CurrentHealth= " + m_enemyHealth);
             }
         }
 
-        if (collision.collider.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             Debug.Log(gameObject + "attacked!");
-            Player.playerStatus.HP -= 1;
+            Player.playerStatus.HP -= m_enemyDamage;
         }
     }
 }
