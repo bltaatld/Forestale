@@ -9,6 +9,7 @@ TagManager:
   - Sea
   - Boss
   - Rock
+  - EnemyMain
   layers:
   - Default
   - TransparentFX

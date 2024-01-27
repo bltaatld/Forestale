@@ -42,6 +42,15 @@ public class TE_EnemyChase : MonoBehaviour
         enemyObject.SetActive(false);
     }
 
+    public void Respawn()
+    {
+        m_enemyHealth = enemyStatus.Health;
+        m_enemyDamage = enemyStatus.Damage;
+        enemyCollider.enabled = true;
+        enemyChase.enabled = true;
+        enemyObject.SetActive(true);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Attack"))
