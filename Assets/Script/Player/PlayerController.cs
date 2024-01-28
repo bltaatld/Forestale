@@ -18,13 +18,31 @@ public class PlayerController : MonoBehaviour
     public PlayerStatus playerStatus;
     public ExtraStatus extraPlayerStatus;
 
+    public static event Action OnPlayerDamaged;
+
+    public int playerMaxHP;
+
+    private void Start()
+    {
+        playerStatus.HP = playerMaxHP;
+    }
+
     private void Update()
     {
         if (!canMove) {  return; }
-
-            if (Input.GetKeyDown(KeyCode.C) && !pAttack.isAttack && moveDirection != Vector3.zero && !m_isRolling)
+    
+        if (Input.GetKeyDown(KeyCode.C) && !pAttack.isAttack && moveDirection != Vector3.zero && !m_isRolling)
         {
             StartCoroutine(Roll());
+        }
+    }
+
+    public void PlayerStatusCheck()
+    {
+        if (playerMaxHP != playerStatus.HP)
+        {
+            OnPlayerDamaged?.Invoke();
+            animator.SetTrigger("IsDamaged");
         }
     }
 

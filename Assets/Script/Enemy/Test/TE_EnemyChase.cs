@@ -6,8 +6,8 @@ public class TE_EnemyChase : MonoBehaviour
 {
     [Header("Status")]
     public EnemyStatus enemyStatus;
-    private int m_enemyHealth;
-    private int m_enemyDamage;
+    public int m_enemyHealth;
+    public int m_enemyDamage;
 
     [Header("Logic Component")]
     public GameObject enemyObject;
@@ -15,6 +15,7 @@ public class TE_EnemyChase : MonoBehaviour
     public BoxCollider2D enemyCollider;
     public EnemyChase enemyChase;
     public PlayerController Player;
+    public float enemyCoolDown = 2.0f;
 
     private void Start()
     {
@@ -48,6 +49,7 @@ public class TE_EnemyChase : MonoBehaviour
         m_enemyDamage = enemyStatus.Damage;
         enemyCollider.enabled = true;
         enemyChase.enabled = true;
+        enemyChase.isStop = false;
         enemyObject.SetActive(true);
     }
 
@@ -55,17 +57,29 @@ public class TE_EnemyChase : MonoBehaviour
     {
         if (collision.CompareTag("Attack"))
         {
-            if (m_enemyHealth > 0)
+            if (m_enemyHealth > 0 && !enemyChase.isStop)
             {
+                StartCoroutine(HitCooldown());
                 animator.SetTrigger("IsHit");
                 m_enemyHealth -= 1;
                 Debug.Log(gameObject + " damaged! " + "CurrentHealth= " + m_enemyHealth);
             }
         }
+    }
 
-        if (collision.CompareTag("Player"))
+    IEnumerator HitCooldown()
+    {
+        enemyChase.isStop = true;
+        yield return new WaitForSeconds(enemyCoolDown);
+        enemyChase.isStop = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
         {
             Debug.Log(gameObject + "attacked!");
+            Player.PlayerStatusCheck();
             Player.playerStatus.HP -= m_enemyDamage;
         }
     }

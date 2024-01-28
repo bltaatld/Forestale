@@ -8,6 +8,7 @@ public class EnemyChase : MonoBehaviour
     public float moveSpeed = 3f;
     public float chaseSpeedMultiplier = 2f;
     public float randomMoveInterval = 2f;
+    public bool isStop;
 
     [Header("Enemy Chase Range")]
     public float detectionRadius = 5f;
@@ -26,7 +27,7 @@ public class EnemyChase : MonoBehaviour
 
     void Update()
     {
-        if (Vector2.Distance(targetObject.transform.position, player.position) <= detectionRadius)
+        if (Vector2.Distance(targetObject.transform.position, player.position) <= detectionRadius && targetObject && isStop == false)
         {
             FollowPlayer();
         }
@@ -54,7 +55,6 @@ public class EnemyChase : MonoBehaviour
         targetObject.transform.Translate(direction * speed * Time.deltaTime);
     }
 
-    // 수정된 함수 이름 및 내용
     void SetCircularRandomMovePosition()
     {
         float randomAngle = Random.Range(0f, 360f);
