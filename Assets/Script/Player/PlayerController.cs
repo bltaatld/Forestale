@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerAttack pAttack;
     public float moveSpeed; // 플레이어 이동 속도
+    public float maxMoveSpeed;
     public float rollDuration = 1f;
     public float rollSpeed = 10f;
     public Rigidbody2D rb;
@@ -17,14 +18,15 @@ public class PlayerController : MonoBehaviour
 
     public PlayerStatus playerStatus;
     public ExtraStatus extraPlayerStatus;
+    public DamagedOutput damagedOutput;
 
     public static event Action OnPlayerDamaged;
 
-    public int playerMaxHP;
+    public float playerMaxHP;
 
     private void Start()
     {
-        playerStatus.HP = playerMaxHP;
+        maxMoveSpeed = moveSpeed;
     }
 
     private void Update()
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(Roll());
         }
+
+        CheckLevelUp();
     }
 
     public void PlayerStatusCheck()
@@ -108,5 +112,56 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(rollDuration);
 
         m_isRolling = false;
+    }
+
+    private void CheckLevelUp()
+    {
+        if (playerStatus.currentEXP >= playerStatus.needEXP)
+        {
+            LevelUp();
+            playerStatus.currentEXP = 0;
+        }
+    }
+
+    private void LevelUp()
+    {
+        playerStatus.LV++;
+        CalculateExperienceForLevel(playerStatus.LV);
+    }
+
+
+    public void CalculateExperienceForLevel(int level)
+    {
+        if (level <= 0)
+        {
+            Debug.LogError("레벨은 1 이상이어야 합니다.");
+        }
+
+        if (level <= 10)
+        {
+            playerStatus.needEXP = (int)15f + (level + Mathf.CeilToInt(level * 20f));
+        }
+        else if (level <= 20)
+        {
+            playerStatus.needEXP = (int)225f + (level + Mathf.CeilToInt(level * 10.5f));
+        }
+        else if (level <= 50)
+        {
+            playerStatus.needEXP = (int)445f + (level + Mathf.CeilToInt(level * 8.5f));
+        }
+
+        else if (level <= 75)
+        {
+            playerStatus.needEXP = (int)920f + (level + Mathf.CeilToInt(level * 5f));
+        }
+        else if (level <= 100)
+        {
+            playerStatus.needEXP = (int)1370f + (level + Mathf.CeilToInt(level * 25f));
+        }
+        else
+        {
+            // 레벨 캡 이상의 경우 처리
+            Debug.LogWarning("최대 레벨을 초과하였습니다.");
+        }
     }
 }

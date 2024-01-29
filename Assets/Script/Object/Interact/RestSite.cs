@@ -5,13 +5,30 @@ using UnityEngine;
 public class RestSite : MonoBehaviour
 {
     public bool isActive;
+    private bool isClicked;
+    public GameObject statusUIObject;
     public EnemySpawnManager spawnManager;
+    public PlayerStatusUI statusUI;
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Z) && isActive)
+        if (Input.GetKeyDown(KeyCode.Z) && isActive)
         {
-            spawnManager.RespawnEnemy();
+            // Toggle isClicked when Z is pressed
+            isClicked = !isClicked;
+
+            if (isClicked)
+            {
+                // If isClicked is true, deactivate status UI and respawn enemies
+                statusUIObject.SetActive(false);
+                statusUI.healthHeartBar.DrawHearts();
+                spawnManager.RespawnEnemy();
+            }
+            else
+            {
+                // If isClicked is false, activate status UI
+                statusUIObject.SetActive(true);
+            }
         }
     }
 
@@ -19,6 +36,7 @@ public class RestSite : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            statusUI.CaculateStatus();
             isActive = true;
         }
     }

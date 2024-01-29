@@ -31,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
             isAttack = false;
             if (Pcontroller.moveSpeed == 0f)
             {
-                Pcontroller.moveSpeed = 6f;
+                Pcontroller.moveSpeed = Pcontroller.maxMoveSpeed;
             }
         }
         attackTimer += Time.deltaTime;

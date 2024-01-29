@@ -35,7 +35,7 @@ public class TE_EnemyChase : MonoBehaviour
     {
         enemyCollider.enabled = false;
         enemyChase.enabled = false;
-        Player.playerStatus.EXP += enemyStatus.Exp;
+        Player.playerStatus.currentEXP += enemyStatus.Exp;
     }
 
     public void DisActive()
@@ -61,7 +61,7 @@ public class TE_EnemyChase : MonoBehaviour
             {
                 StartCoroutine(HitCooldown());
                 animator.SetTrigger("IsHit");
-                m_enemyHealth -= 1;
+                m_enemyHealth -= (int)Player.damagedOutput.NormalDamage;
                 Debug.Log(gameObject + " damaged! " + "CurrentHealth= " + m_enemyHealth);
             }
         }
