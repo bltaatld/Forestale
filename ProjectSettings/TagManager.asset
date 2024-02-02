@@ -10,6 +10,7 @@ TagManager:
   - Boss
   - Rock
   - EnemyMain
+  - Item
   layers:
   - Default
   - TransparentFX

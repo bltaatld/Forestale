@@ -15,6 +15,7 @@ public class TE_EnemyChase : MonoBehaviour
     public BoxCollider2D enemyCollider;
     public EnemyChase enemyChase;
     public PlayerController Player;
+    public ItemDrop itemDrop;
     public float enemyCoolDown = 2.0f;
 
     private void Start()
@@ -33,6 +34,7 @@ public class TE_EnemyChase : MonoBehaviour
 
     public void DeathEffect()
     {
+        itemDrop.ItemInstantiate();
         enemyCollider.enabled = false;
         enemyChase.enabled = false;
         Player.playerStatus.currentEXP += enemyStatus.Exp;
@@ -79,8 +81,8 @@ public class TE_EnemyChase : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             Debug.Log(gameObject + "attacked!");
-            Player.PlayerStatusCheck();
             Player.playerStatus.HP -= m_enemyDamage;
+            Player.PlayerStatusCheck();
         }
     }
 }

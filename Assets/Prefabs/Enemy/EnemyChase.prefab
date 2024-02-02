@@ -256,12 +256,16 @@ MonoBehaviour:
   enemyStatus:
     Health: 3
     Damage: 1
-    Exp: 10
+    Exp: 25
+  m_enemyHealth: 0
+  m_enemyDamage: 0
   enemyObject: {fileID: 627670032084824811}
   animator: {fileID: 627670032672724179}
   enemyCollider: {fileID: 627670032672724174}
   enemyChase: {fileID: 627670033422175233}
   Player: {fileID: 0}
+  itemDrop: {fileID: 0}
+  enemyCoolDown: 0.3
 --- !u!114 &627670032672724180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,7 +281,7 @@ MonoBehaviour:
   anim: {fileID: 627670032672724179}
   player: {fileID: 0}
   detectionRadius: 5
-  attackCoolDown: 2
+  attackCoolDown: 0.1
 --- !u!1 &627670033422175244
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +331,7 @@ MonoBehaviour:
   moveSpeed: 2
   chaseSpeedMultiplier: 1.7
   randomMoveInterval: 1.5
+  isStop: 0
   detectionRadius: 3.94
   randomMoveRangeRadius: 3.07
   player: {fileID: 0}

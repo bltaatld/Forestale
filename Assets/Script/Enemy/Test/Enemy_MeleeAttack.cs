@@ -24,24 +24,29 @@ public class Enemy_MeleeAttack : MonoBehaviour
 
             if (angleToPlayer >= -45 && angleToPlayer < 45)
             {
-                Debug.Log("right");
                 anim.SetInteger("AttackX", 1);
+                anim.SetInteger("AttackY", 0);
             }
             else if (angleToPlayer >= 45 && angleToPlayer < 135)
             {
-                Debug.Log("up");
                 anim.SetInteger("AttackY", 1);
+                anim.SetInteger("AttackX", 0);
             }
             else if (angleToPlayer >= 135 || angleToPlayer < -135)
             {
-                Debug.Log("left");
                 anim.SetInteger("AttackX", -1);
+                anim.SetInteger("AttackY", 0);
             }
             else if (angleToPlayer >= -135 && angleToPlayer < -45)
             {
-                Debug.Log("down");
                 anim.SetInteger("AttackY", -1);
+                anim.SetInteger("AttackX", 0);
             }
+        }
+        else
+        {
+            anim.SetInteger("AttackX", 0);
+            anim.SetInteger("AttackY", -1);
         }
     }
 

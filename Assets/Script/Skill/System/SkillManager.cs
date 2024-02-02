@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
-    public GameObject controller;
+    public GameObject player;
+    public Image[] images;
+    public int imageOrder;
     public List<SkillScriptableObject> availableSkills = new List<SkillScriptableObject>();
     private Dictionary<string, SkillScriptableObject> skillDictionary = new Dictionary<string, SkillScriptableObject>();
 
@@ -34,15 +37,53 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public void SetSkillIcon(string skillName)
+    {
+        SkillScriptableObject skill = skillDictionary[skillName];
+        ActiveSkillIcon(skill);
+    }
+
+    public void ActiveSkillIcon(SkillScriptableObject skill)
+    {
+        switch (skill.name)
+        {
+            case "Debug":
+                Debug.Log("Debug Skill Icon Active");
+                break;
+            case "Warrior_Swipe":
+                images[imageOrder].sprite = skill.Icon;
+                break;
+            case "Archer_Field":
+                images[imageOrder].sprite = skill.Icon;
+                break;
+        }
+    }
+
     IEnumerator ActivateSkill(SkillScriptableObject skill)
     {
         if (!IsSkillOnCooldown(skill))
         {
             switch (skill.name)
             {
+                case "Debug":
+                    Debug.Log("Debug Skill Active");
+                    break;
                 case "Warrior_Swipe":
-                    GameObject instantiatedPrefab = Instantiate(skill.LogicGameObject, controller.transform);
-                    Debug.Log("Warrior_Swipe" + skill.Name);
+                    if (player.GetComponent<PlayerController>().playerStatus.MP >= skill.manaCost)
+                    {
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        Instantiate(skill.LogicGameObject, player.transform);
+                        Debug.Log(skill.Name);
+                    }
+                    break;
+                case "Archer_Field":
+                    if (player.GetComponent<PlayerController>().playerStatus.MP >= skill.manaCost)
+                    {
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        GameObject archerField = Instantiate(skill.LogicGameObject);
+                        archerField.transform.position = player.transform.position;
+                        Debug.Log(skill.Name);
+                    }
                     break;
             }
 

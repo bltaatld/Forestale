@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerStatusUI : MonoBehaviour
 {
     [Header("Logic Value")]
-    public int currentSP;
+    public int currentLP;
     private float heartResult;
 
     [Header("Component")]
@@ -35,6 +35,8 @@ public class PlayerStatusUI : MonoBehaviour
     public TextMeshProUGUI HitDamage;
     public TextMeshProUGUI CriticalChance;
     public TextMeshProUGUI SPtext;
+    public TextMeshProUGUI AmberText;
+    public TextMeshProUGUI InGameLVyext;
     #endregion
 
     private void Start()
@@ -48,9 +50,13 @@ public class PlayerStatusUI : MonoBehaviour
         TextOutput();
     }
 
+    public void ResetLP()
+    {
+        currentLP = playerController.playerStatus.LV;
+    }
+
     public void CaculateStatus()
     {
-        currentSP = playerController.playerStatus.LV;
 
         //HP
         heartResult = 250 + (100 * playerController.playerStatus.LV) / 2;
@@ -60,6 +66,7 @@ public class PlayerStatusUI : MonoBehaviour
         //MP
         float manaResult = 100 + (100 * playerController.playerStatus.LV) / 1.5f;
         playerController.playerStatus.MP = (int)manaResult;
+        playerController.playerMaxMP = (int)manaResult;
 
         //WP
         playerController.playerStatus.WP = (int)heartResult;
@@ -96,7 +103,6 @@ public class PlayerStatusUI : MonoBehaviour
         {
             defence *= 1.3f;
             playerController.damagedOutput.HitDamage = defence;
-            Debug.Log(defence * 1.3f);
         }
         else if (playerController.extraPlayerStatus.Defense <= 40)
         {
@@ -117,7 +123,7 @@ public class PlayerStatusUI : MonoBehaviour
 
     public void UpgradeSTR()
     {
-        if (currentSP > 0)
+        if (currentLP > 0)
         {
             Debug.Log("STR Upgrade");
             playerController.playerStatus.STR += 1;
@@ -125,7 +131,7 @@ public class PlayerStatusUI : MonoBehaviour
             playerController.extraPlayerStatus.TrueDamage += 1;
             playerController.extraPlayerStatus.Defense += 2;
             HitDamageCaculate();
-            currentSP -= 1;
+            currentLP -= 1;
         }
         else
         {
@@ -135,7 +141,7 @@ public class PlayerStatusUI : MonoBehaviour
 
     public void UpgradeDEX()
     {
-        if (currentSP > 0)
+        if (currentLP > 0)
         {
             Debug.Log("DEX Upgrade");
             playerController.playerStatus.DEX += 1;
@@ -145,7 +151,7 @@ public class PlayerStatusUI : MonoBehaviour
             playerController.maxMoveSpeed += 0.1f;
  
             playerController.extraPlayerStatus.TrueDamage += 3;
-            currentSP -= 1;
+            currentLP -= 1;
         }
         else
         {
@@ -155,14 +161,14 @@ public class PlayerStatusUI : MonoBehaviour
 
     public void UpgradeINT()
     {
-        if (currentSP > 0)
+        if (currentLP > 0)
         {
             Debug.Log("INT Upgrade");
 
             playerController.playerStatus.INT += 1;
             playerController.extraPlayerStatus.Magic += 2;
             playerController.extraPlayerStatus.TrueMagic += 1;
-            currentSP -= 1;
+            currentLP -= 1;
         }
         else
         {
@@ -172,14 +178,14 @@ public class PlayerStatusUI : MonoBehaviour
 
     public void UpgradeFOC()
     {
-        if (currentSP > 0)
+        if (currentLP > 0)
         {
             Debug.Log("FOC Upgrade");
 
             playerController.playerStatus.FOC += 1;
             playerController.extraPlayerStatus.AttackSpeed += 2;
             playerController.extraPlayerStatus.TrueMagic += 3;
-            currentSP -= 1;
+            currentLP -= 1;
         }
         else
         {
@@ -189,7 +195,7 @@ public class PlayerStatusUI : MonoBehaviour
 
     public void TextOutput()
     {
-        SPtext.text = currentSP.ToString();
+        SPtext.text = currentLP.ToString();
         LVtext.text = playerController.playerStatus.LV.ToString();
         EXPtext.text = playerController.playerStatus.needEXP.ToString();
         HPtext.text = $"{heartResult} | {heartResult / 100} Heart";
@@ -211,5 +217,7 @@ public class PlayerStatusUI : MonoBehaviour
         MagicDamage.text = playerController.damagedOutput.MagicDamage.ToString() + " (" + playerController.damagedOutput.MagicDamagePercentage.ToString() + "%)"; ;
         HitDamage.text = playerController.damagedOutput.HitDamage.ToString() + "%";
         CriticalChance.text = playerController.damagedOutput.CriticalChance.ToString()+ "%";
+        AmberText.text = playerController.systemValue.Amber.ToString();
+        InGameLVyext.text = playerController.playerStatus.LV.ToString();
     }
 }

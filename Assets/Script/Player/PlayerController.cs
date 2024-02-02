@@ -19,10 +19,14 @@ public class PlayerController : MonoBehaviour
     public PlayerStatus playerStatus;
     public ExtraStatus extraPlayerStatus;
     public DamagedOutput damagedOutput;
+    public SystemValue systemValue;
+    public SkillUI skillUI;
+    public PlayerStatusUI statusUI;
 
     public static event Action OnPlayerDamaged;
 
     public float playerMaxHP;
+    public float playerMaxMP;
 
     private void Start()
     {
@@ -43,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerStatusCheck()
     {
-        if (playerMaxHP != playerStatus.HP)
+        if (playerStatus.HP >= 0)
         {
             OnPlayerDamaged?.Invoke();
             animator.SetTrigger("IsDamaged");
@@ -127,6 +131,8 @@ public class PlayerController : MonoBehaviour
     {
         playerStatus.LV++;
         CalculateExperienceForLevel(playerStatus.LV);
+        skillUI.ResetSP();
+        statusUI.ResetLP();
     }
 
 

@@ -7,6 +7,7 @@ public class BushObject : MonoBehaviour
     public Animator animator;
     public BoxCollider2D bushCollider;
     public int Health;
+    public ItemDrop itemDrop;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,6 +16,7 @@ public class BushObject : MonoBehaviour
             Health -= 1;
             if (Health <= 0)
             {
+                itemDrop.ItemInstantiate();
                 animator.SetTrigger("IsDead");
                 bushCollider.enabled = false;
             }

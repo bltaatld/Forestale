@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2271961482126778223}
   - component: {fileID: 2271961482126778222}
   - component: {fileID: 2271961482126778208}
+  - component: {fileID: 1597399523}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Untagged
@@ -102,6 +103,7 @@ MonoBehaviour:
   animator: {fileID: 2271961482126778222}
   bushCollider: {fileID: 2271961482126778208}
   Health: 1
+  itemDrop: {fileID: 1597399523}
 --- !u!95 &2271961482126778222
 Animator:
   serializedVersion: 5
@@ -148,3 +150,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1597399523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271961482126778219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92dd1532789b5a44f85fe7b3d6cd14a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemProbabilities:
+  - item: {fileID: 3601459605273829372, guid: 7340564790926444aaad4066c7911794, type: 3}
+    probability: 5
+  - item: {fileID: 7120989351150732642, guid: fa4e3bda39a84d3409bd7960d9885ba9, type: 3}
+    probability: 70

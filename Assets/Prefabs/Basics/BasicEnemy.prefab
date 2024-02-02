@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1548114264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1548114265}
+  - component: {fileID: 1548114266}
+  m_Layer: 0
+  m_Name: PlayerSkillManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1548114265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548114264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 100971979314236131}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1548114266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548114264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1336d949da609c148bb2a3887d7e45b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  images:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  imageOrder: 0
+  availableSkills:
+  - {fileID: 11400000, guid: 33b56bd714a1aa44eaf26aea8e10311e, type: 2}
+  - {fileID: 11400000, guid: 617ccbf0c45ec8849a802d6817bae66c, type: 2}
+  - {fileID: 11400000, guid: 82c746fc672e03047a91c15957831c36, type: 2}
 --- !u!1 &100971978720767860
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +197,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 100971979301140584}
+  - {fileID: 1548114265}
   m_Father: {fileID: 100971978972917027}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -155,6 +211,14 @@ PrefabInstance:
     - target: {fileID: 627670032672724176, guid: 2f08267880c82e344a1b2f4dc834237f, type: 3}
       propertyPath: Player
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 627670032672724176, guid: 2f08267880c82e344a1b2f4dc834237f, type: 3}
+      propertyPath: enemyCoolDown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 627670032672724176, guid: 2f08267880c82e344a1b2f4dc834237f, type: 3}
+      propertyPath: enemyStatus.Exp
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 627670032672724180, guid: 2f08267880c82e344a1b2f4dc834237f, type: 3}
       propertyPath: player

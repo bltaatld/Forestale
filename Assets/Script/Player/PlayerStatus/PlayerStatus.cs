@@ -38,3 +38,10 @@ public class DamagedOutput
     public float NormalDamagePercentage;
     public float MagicDamagePercentage;
 }
+
+[System.Serializable]
+public class SystemValue
+{
+    public int Amber;
+    public int Honor;
+}
