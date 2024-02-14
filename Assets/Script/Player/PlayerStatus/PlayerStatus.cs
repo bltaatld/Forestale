@@ -43,5 +43,6 @@ public class DamagedOutput
 public class SystemValue
 {
     public int Amber;
+    public int Seed;
     public int Honor;
 }

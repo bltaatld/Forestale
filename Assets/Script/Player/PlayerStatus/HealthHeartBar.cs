@@ -32,7 +32,6 @@ public class HealthHeartBar : MonoBehaviour
 
         for(int i = 0; i < heartsToMake; i++)
         {
-            Debug.Log(heartsToMake);
             CreateEmptyHeart();
         }
 

@@ -18,12 +18,14 @@ public class RestSite : MonoBehaviour
 
             if (isClicked)
             {
+                Time.timeScale = 1f;
                 statusUIObject.SetActive(false);
                 statusUI.healthHeartBar.DrawHearts();
                 spawnManager.RespawnEnemy();
             }
             else
             {
+                Time.timeScale = 0f;
                 statusUIObject.SetActive(true);
             }
         }

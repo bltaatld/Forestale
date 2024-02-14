@@ -257,6 +257,7 @@ MonoBehaviour:
     Health: 3
     Damage: 1
     Exp: 25
+    WP: 25
   m_enemyHealth: 0
   m_enemyDamage: 0
   enemyObject: {fileID: 627670032084824811}

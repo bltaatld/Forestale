@@ -70,6 +70,7 @@ public class PlayerStatusUI : MonoBehaviour
 
         //WP
         playerController.playerStatus.WP = (int)heartResult;
+        playerController.playerMaxWP = (int)heartResult;
 
         //Normal Damage
         float trueDamage = playerController.extraPlayerStatus.TrueDamage;

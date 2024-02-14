@@ -12,9 +12,10 @@ public class ThrowObject : MonoBehaviour
     public float throwSpeed;
     public float throwPower;
     public bool isPush;
+    public bool isShop;
 
     private float epsilon = 0.0001f;
-    private GameObject itemHolding;
+    public GameObject itemHolding;
 
     void Update()
     {
@@ -26,7 +27,7 @@ public class ThrowObject : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (itemHolding)
+            if (itemHolding && !isShop)
             {
                 itemHolding.transform.position = transform.position + Direction;
                 itemHolding.transform.parent = null;
@@ -41,7 +42,7 @@ public class ThrowObject : MonoBehaviour
                 {
                     itemHolding = pickUpItem.gameObject;
                     itemHolding.transform.position = holdSpot.position;
-                    itemHolding.transform.parent = transform;
+                    itemHolding.transform.parent = holdSpot.transform;
                     if (itemHolding.GetComponent<Rigidbody2D>())
                         itemHolding.GetComponent<Rigidbody2D>().simulated = false;
                 }

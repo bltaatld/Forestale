@@ -38,6 +38,11 @@ public class TE_EnemyChase : MonoBehaviour
         enemyCollider.enabled = false;
         enemyChase.enabled = false;
         Player.playerStatus.currentEXP += enemyStatus.Exp;
+
+        if (Player.playerStatus.WP < Player.playerMaxWP)
+        {
+            Player.playerStatus.WP += enemyStatus.WP;
+        }
     }
 
     public void DisActive()

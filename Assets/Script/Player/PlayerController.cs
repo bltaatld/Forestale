@@ -27,9 +27,12 @@ public class PlayerController : MonoBehaviour
 
     public float playerMaxHP;
     public float playerMaxMP;
+    public float playerMaxWP;
+    public int playerMaxSeed;
 
     private void Start()
     {
+        playerMaxSeed = systemValue.Seed;
         maxMoveSpeed = moveSpeed;
     }
 
@@ -113,7 +116,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Rolled");
         rb.velocity = new Vector2(moveDirection.x * rollSpeed, moveDirection.y * rollSpeed);
         animator.SetTrigger("IsRoll");
+        gameObject.tag = "PlayerExtra";
         yield return new WaitForSeconds(rollDuration);
+        gameObject.tag = "Player";
 
         m_isRolling = false;
     }

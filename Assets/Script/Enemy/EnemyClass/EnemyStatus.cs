@@ -8,4 +8,5 @@ public class EnemyStatus
     public int Health;
     public int Damage;
     public int Exp;
+    public int WP;
 }

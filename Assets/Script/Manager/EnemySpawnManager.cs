@@ -26,12 +26,6 @@ public class EnemySpawnManager : MonoBehaviour
             mainEnemyObject.Add(enemy);
             mainEnemyPositions.Add(enemy.transform.position);
         }
-
-        foreach (Vector3 position in mainEnemyPositions)
-        {
-            Debug.Log("Enemy Position: " + position);
-        }
-
     }
 
     public void RespawnEnemy()

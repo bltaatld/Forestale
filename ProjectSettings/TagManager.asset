@@ -11,6 +11,8 @@ TagManager:
   - Rock
   - EnemyMain
   - Item
+  - PlayerExtra
+  - Seed
   layers:
   - Default
   - TransparentFX
