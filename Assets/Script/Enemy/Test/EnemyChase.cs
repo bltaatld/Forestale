@@ -9,6 +9,7 @@ public class EnemyChase : MonoBehaviour
     public float chaseSpeedMultiplier = 2f;
     public float randomMoveInterval = 2f;
     public bool isStop;
+    public bool isDitected;
 
     [Header("Enemy Chase Range")]
     public float detectionRadius = 5f;
@@ -18,7 +19,6 @@ public class EnemyChase : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private float randomMoveTimer = 0f;
     [SerializeField] private Vector2 randomMovePosition;
-    [SerializeField] private bool isDitected;
 
     void Start()
     {
@@ -31,7 +31,7 @@ public class EnemyChase : MonoBehaviour
         {
             FollowPlayer();
         }
-        else
+        else if (isStop == false)
         {
             isDitected = false;
             CircularRandomMovement();

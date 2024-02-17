@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 627670032672724174}
   - component: {fileID: 627670032672724179}
   - component: {fileID: 627670032672724176}
-  - component: {fileID: 627670032672724180}
+  - component: {fileID: 160744247598428282}
   m_Layer: 0
   m_Name: EnemyObject
   m_TagString: EnemyMain
@@ -267,7 +267,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   itemDrop: {fileID: 0}
   enemyCoolDown: 0.3
---- !u!114 &627670032672724180
+--- !u!114 &160744247598428282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,13 +276,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 627670032084824811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d0df60a6a360149b1d631047056a2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c0a7e0f5d2c5b841bc62e142dd33db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 627670032672724179}
-  player: {fileID: 0}
+  targetParent: {fileID: 627670033422175246}
+  watchTarget: {fileID: 0}
   detectionRadius: 5
   attackCoolDown: 0.1
+  gizmoColor: {r: 0, g: 1, b: 0.085513115, a: 1}
 --- !u!1 &627670033422175244
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Enemy_MeleeAttack : MonoBehaviour
 {
     public Animator anim;
     public Transform player;
+    public EnemyChase chase;
     public float detectionRadius = 5f;
     public float attackCoolDown;
 
@@ -13,12 +14,32 @@ public class Enemy_MeleeAttack : MonoBehaviour
     {
         InvokeRepeating("UpdateWithInterval", 0f, attackCoolDown);
     }
+    public Color gizmoColor = Color.red;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = gizmoColor;
+
+        // 이 콜라이더가 있다고 가정하고 그리기 위해 사용합니다.
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            Gizmos.DrawWireSphere(collider.bounds.center, detectionRadius);
+        }
+        else
+        {
+            Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        }
+    }
+
 
     void UpdateWithInterval()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer <= detectionRadius)
         {
+            chase.isStop = true;
+
             Vector2 playerDirection = player.position - transform.position;
             float angleToPlayer = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
 
@@ -45,8 +66,8 @@ public class Enemy_MeleeAttack : MonoBehaviour
         }
         else
         {
-            anim.SetInteger("AttackX", 0);
-            anim.SetInteger("AttackY", -1);
+            chase.isStop = false;
+            ResetAttack();
         }
     }
 
