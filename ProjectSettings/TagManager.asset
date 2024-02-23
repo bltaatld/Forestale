@@ -13,6 +13,7 @@ TagManager:
   - Item
   - PlayerExtra
   - Seed
+  - Rope
   layers:
   - Default
   - TransparentFX

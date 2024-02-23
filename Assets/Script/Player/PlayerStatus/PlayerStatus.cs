@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -45,4 +46,5 @@ public class SystemValue
     public int Amber;
     public int Seed;
     public int Honor;
+    public List<string> Prograss = new List<string>();
 }
