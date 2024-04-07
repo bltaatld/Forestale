@@ -20,6 +20,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.X) && attackTimer >= attackAfterAttackDelay)
         {
+            AudioManager.instance.PlaySound(0);
             isAttack = true;
             Pcontroller.animator.SetTrigger("IsAttack");
             Pcontroller.moveSpeed = 0f;

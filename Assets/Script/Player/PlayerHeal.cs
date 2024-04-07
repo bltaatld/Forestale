@@ -11,6 +11,7 @@ public class PlayerHeal : MonoBehaviour
     public Sprite sprite50Percent;
     public Sprite sprite100Percent;
 
+    public Animator animator;
     public PlayerController playerController;
     public PlayerStatusUI statusUI;
 
@@ -23,19 +24,23 @@ public class PlayerHeal : MonoBehaviour
         // 백분율에 따라 스프라이트 변경
         if (percentage <= 0.2f)
         {
-            progressBar.sprite = sprite0Percent;
+            animator.SetInteger("Percent", 0);
+            //progressBar.sprite = sprite0Percent;
         }
         else if (percentage <= 0.5f)
         {
-            progressBar.sprite = sprite20Percent;
+            animator.SetInteger("Percent", 1);
+            //progressBar.sprite = sprite20Percent;
         }
         else if (percentage < 1f)
         {
-            progressBar.sprite = sprite50Percent;
+            animator.SetInteger("Percent", 2);
+            //progressBar.sprite = sprite50Percent;
         }
         else
         {
-            progressBar.sprite = sprite100Percent;
+            animator.SetInteger("Percent", 3);
+            //progressBar.sprite = sprite100Percent;
         }
 
         // 특정 버튼이 눌렸을 때 (예: 스페이스바)

@@ -5,12 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/VisualTestScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
-    path: Assets/Scenes/Monhak.unity
-    guid: a6f26381f71d80c4ba34e5c658e6c153
+  - enabled: 1
+    path: Assets/Scenes/CutScene.unity
+    guid: a2718ae46f1025e46b2fc8e38c477b05
   - enabled: 1
     path: Assets/Scenes/PrototypeScene.unity
     guid: be79469f7a26ade4b9d70bfa3f983034

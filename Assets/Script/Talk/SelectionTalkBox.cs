@@ -4,10 +4,30 @@ using UnityEngine;
 
 public class SelectionTalkBox : MonoBehaviour
 {
-    public GameObject TargetUI;
+    public SelectManager selectManager;
 
-    void Update()
+    private void Start()
     {
+        GameObject selectManger = GameObject.Find("PlayerSelectManager");
+        if (selectManger != null)
+        {
+            selectManager = selectManger.GetComponent<SelectManager>();
+        }
+    }
 
+    public void isYes()
+    {
+        if (selectManager != null)
+        {
+            selectManager.isYes();
+        }
+    }
+
+    public void isNo()
+    {
+        if (selectManager != null)
+        {
+            selectManager.isNo();
+        }
     }
 }

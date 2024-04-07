@@ -66,9 +66,11 @@ public class ThrowObject : MonoBehaviour
         Collider2D pickUpItem = Physics2D.OverlapCircle(transform.position + Direction, 0.3f, pickUpMask);
         if (pickUpItem)
         {
+            Debug.Log(pickUpItem.gameObject);
             itemHolding = pickUpItem.gameObject;
             itemHolding.transform.position = holdSpot.position;
             itemHolding.transform.parent = holdSpot.transform;
+            Debug.Log(itemHolding);
             if (itemHolding.GetComponent<Rigidbody2D>())
                 itemHolding.GetComponent<Rigidbody2D>().simulated = false;
         }
@@ -95,6 +97,10 @@ public class ThrowObject : MonoBehaviour
         {
             isPush = true;
         }
+        if (collision.collider.CompareTag("Shop"))
+        {
+            isShop = true;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -102,6 +108,10 @@ public class ThrowObject : MonoBehaviour
         if (collision.collider.CompareTag("Rock"))
         {
             isPush = false;
+        }
+        if (collision.collider.CompareTag("Shop"))
+        {
+            isShop = false;
         }
     }
 }

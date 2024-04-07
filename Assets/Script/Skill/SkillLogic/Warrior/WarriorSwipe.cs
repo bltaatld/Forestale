@@ -4,33 +4,31 @@ using UnityEngine;
 
 public class WarriorSwipe : MonoBehaviour
 {
+    private Animator animator;
+
     void Start()
     {
-        GameObject playerObject = GameObject.Find("Player");
+        animator = GameObject.Find("Player").GetComponent<Animator>();
+        Vector3 rotation = Vector3.zero;
 
-        if (playerObject != null && playerObject.TryGetComponent(out RopeObject playerController))
+        if (animator.GetInteger("MoveX") == 1)
         {
-            Vector3 rotation = Vector3.zero;
-
-            if (playerController.currnetDirection.x > 0)
-            {
-                rotation = new Vector3(0, 0, 90);
-            }
-            if (playerController.currnetDirection.x < 0)
-            {
-                rotation = new Vector3(0, 0, -90);
-            }
-            if (playerController.currnetDirection.y < 0)
-            {
-                rotation = new Vector3(0, 0, 0);
-            }
-            if (playerController.currnetDirection.y > 0)
-            {
-                rotation = new Vector3(0, 0, 180);
-            }
-
-            transform.eulerAngles = rotation;
+            rotation = new Vector3(0, 0, 90);
         }
+        if (animator.GetInteger("MoveX") == -1)
+        {
+            rotation = new Vector3(0, 0, -90);
+        }
+        if (animator.GetInteger("MoveY") == -1)
+        {
+            rotation = new Vector3(0, 0, 0);
+        }
+        if (animator.GetInteger("MoveY") == 1)
+        {
+            rotation = new Vector3(0, 0, 180);
+        }
+
+        transform.eulerAngles = rotation;
     }
 
     public void DestroySkill()

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e3b5b51831f47a438301805901db8f5, type: 3}
+  m_Name: Body_Armor_Beech
+  m_EditorClassIdentifier: 
+  ID: 3
+  cost: 30
+  icon: {fileID: 21300000, guid: c11137bf101164c4f9715adaba540497, type: 3}
+  preview: {fileID: 21300000, guid: c11137bf101164c4f9715adaba540497, type: 3}
+  LogicGameObject: {fileID: 0}
+  itemName: "\uB108\uB3C4 \uBC24\uB098\uBB34 \uAC11\uC637"
+  description: "\uBC24 \uCC98\uB7FC \uAC00\uC2DC\uAC00 \uB098\uC788\uC5B4 \uB530\uAC00\uC6B4
+    \uAC11\uC637, \uB108\uB3C4 \uADF8\uB807\uB2E4."
+  itemStatus:
+    STR: 2
+    DEX: 0
+    INT: 0
+    FOC: 0
+  itemExtraStatus:
+    Power: 2
+    TrueDamage: 0
+    IgnoreAginst: 0
+    AttackSpeed: 0
+    Defense: 8
+    Agility: 0
+    Magic: 0
+    TrueMagic: 0

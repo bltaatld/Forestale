@@ -99,6 +99,8 @@ GameObject:
   - component: {fileID: 627670032672724179}
   - component: {fileID: 627670032672724176}
   - component: {fileID: 160744247598428282}
+  - component: {fileID: 6734469477368834700}
+  - component: {fileID: 77570761543787834}
   m_Layer: 0
   m_Name: EnemyObject
   m_TagString: EnemyMain
@@ -187,8 +189,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 2
+  m_AngularDrag: 2
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -258,15 +260,18 @@ MonoBehaviour:
     Damage: 1
     Exp: 25
     WP: 25
-  m_enemyHealth: 0
-  m_enemyDamage: 0
+  enemyHealth: 0
+  enemyDamage: 0
   enemyObject: {fileID: 627670032084824811}
   animator: {fileID: 627670032672724179}
   enemyCollider: {fileID: 627670032672724174}
   enemyChase: {fileID: 627670033422175233}
-  Player: {fileID: 0}
-  itemDrop: {fileID: 0}
+  playerController: {fileID: 0}
+  rigid: {fileID: 627670032672724175}
+  itemDrop: {fileID: 6734469477368834700}
   enemyCoolDown: 0.3
+  bounceForce: 2
+  isInRoom: 0
 --- !u!114 &160744247598428282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +290,47 @@ MonoBehaviour:
   detectionRadius: 5
   attackCoolDown: 0.1
   gizmoColor: {r: 0, g: 1, b: 0.085513115, a: 1}
+  isFollow: 0
+--- !u!114 &6734469477368834700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627670032084824811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92dd1532789b5a44f85fe7b3d6cd14a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemProbabilities:
+  - item: {fileID: 3601459605273829372, guid: 7340564790926444aaad4066c7911794, type: 3}
+    probability: 50
+--- !u!114 &77570761543787834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627670032084824811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d24dfd29663da419654d1abdd548b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyObject: {fileID: 627670032084824811}
+  enemyCollider: {fileID: 627670032672724174}
+  enemyChase: {fileID: 627670033422175233}
+  playerController: {fileID: 0}
+  itemDrop: {fileID: 6734469477368834700}
+  isNeedChase: 1
+  enemyStatus:
+    Health: 0
+    Damage: 0
+    Exp: 0
+    WP: 0
+  m_enemyHealth: 0
+  m_enemyDamage: 0
 --- !u!1 &627670033422175244
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,13 +377,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 627670032084824811}
+  animator: {fileID: 0}
   moveSpeed: 2
   chaseSpeedMultiplier: 1.7
   randomMoveInterval: 1.5
   isStop: 0
+  isDitected: 0
   detectionRadius: 3.94
   randomMoveRangeRadius: 3.07
   player: {fileID: 0}
   randomMoveTimer: 0
   randomMovePosition: {x: 0, y: 0}
-  isDitected: 0

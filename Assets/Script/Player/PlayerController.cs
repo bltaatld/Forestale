@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 	public Animator animator; // Animator 컴포넌트 참조
 	public Vector3 moveDirection;
 	public bool canMove;
+	public GameObject levelUpEffect;
 	[SerializeField] private bool m_isRolling;
 
 	public PlayerStatus playerStatus;
@@ -38,12 +39,22 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
-		if (!canMove) {  return; }
-	
-		if (Input.GetKeyDown(KeyCode.C) && !pAttack.isAttack && moveDirection != Vector3.zero && !m_isRolling)
+		if (!canMove) 
 		{
+			animator.SetBool("IsWalking", false);
+			return;
+		}
+
+		if (Input.GetKeyDown(KeyCode.C) && !pAttack.isAttack && moveDirection != Vector3.zero && !m_isRolling) 
+		{
+			AudioManager.instance.PlaySound(4);
 			StartCoroutine(Roll());
 		}
+
+		if (playerStatus.HP <= 0)
+		{
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
 		CheckLevelUp();
 	}
@@ -53,7 +64,8 @@ public class PlayerController : MonoBehaviour
 		if (playerStatus.HP >= 0)
 		{
 			OnPlayerDamaged?.Invoke();
-			animator.SetTrigger("IsDamaged");
+            AudioManager.instance.PlaySound(2);
+            animator.SetTrigger("IsDamaged");
 		}
 	}
 
@@ -114,9 +126,7 @@ public class PlayerController : MonoBehaviour
 		Debug.Log("Rolled");
 		rb.velocity = new Vector2(moveDirection.x * rollSpeed, moveDirection.y * rollSpeed);
 		animator.SetTrigger("IsRoll");
-		gameObject.tag = "PlayerExtra";
 		yield return new WaitForSeconds(rollDuration);
-		gameObject.tag = "Player";
 
 		m_isRolling = false;
 	}
@@ -133,17 +143,24 @@ public class PlayerController : MonoBehaviour
 	private void LevelUp()
 	{
 		playerStatus.LV++;
+		Instantiate(levelUpEffect,transform.position, Quaternion.identity);
 		CalculateExperienceForLevel(playerStatus.LV);
-		skillUI.ResetSP();
+        skillUI.ResetSP();
 		statusUI.ResetLP();
-	}
+		statusUI.CaculateStatus();
+        statusUI.healthHeartBar.DrawHearts();
+    }
 
+    public void CamEffect()
+    {
+        CameraShake.instance.Shakecamera(8f, 0.5f);
+    }
 
-	public void CalculateExperienceForLevel(int level)
+    public void CalculateExperienceForLevel(int level)
 	{
 		if (level <= 0)
 		{
-			Debug.LogError("레벨은 1 이상이어야 합니다.");
+			Debug.LogError("level need more than 1");
 		}
 
 		if (level <= 10)
@@ -169,8 +186,12 @@ public class PlayerController : MonoBehaviour
 		}
 		else
 		{
-			// 레벨 캡 이상의 경우 처리
-			Debug.LogWarning("최대 레벨을 초과하였습니다.");
+			Debug.LogWarning("max level over");
 		}
 	}
+
+    public void MoveTo(Vector2 position)
+    {
+        transform.position = position;
+    }
 }

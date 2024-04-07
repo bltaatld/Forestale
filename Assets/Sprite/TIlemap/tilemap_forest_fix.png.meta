@@ -36,9 +36,9 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -4960,14 +4960,14 @@ TextureImporter:
       tilemap_forest_fix_151: -1505716856
       tilemap_forest_fix_85: -89699666
       tilemap_forest_fix_191: -370741078
-      tilemap_forest_fix_188: 1575065494
       tilemap_forest_fix_35: 2086758058
-      tilemap_forest_fix_103: -997415129
+      tilemap_forest_fix_157: -566153792
+      tilemap_forest_fix_215: -52807155
+      tilemap_forest_fix_188: 1575065494
       tilemap_forest_fix_63: -853037253
       tilemap_forest_fix_2: -1894471830
-      tilemap_forest_fix_157: -566153792
       tilemap_forest_fix_183: 1602676647
-      tilemap_forest_fix_215: -52807155
+      tilemap_forest_fix_103: -997415129
       tilemap_forest_fix_111: -837471917
       tilemap_forest_fix_102: 1578480320
       tilemap_forest_fix_141: -223039663
@@ -5075,10 +5075,10 @@ TextureImporter:
       tilemap_forest_fix_170: -1875103343
       tilemap_forest_fix_23: -1105038262
       tilemap_forest_fix_50: 52082599
-      tilemap_forest_fix_34: -2088648897
       tilemap_forest_fix_152: -587157337
-      tilemap_forest_fix_127: 1140045573
+      tilemap_forest_fix_34: -2088648897
       tilemap_forest_fix_207: -1726361293
+      tilemap_forest_fix_127: 1140045573
       tilemap_forest_fix_206: -1626105930
       tilemap_forest_fix_7: -1635425594
       tilemap_forest_fix_12: 964367306

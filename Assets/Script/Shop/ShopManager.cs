@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.VisualScripting.Metadata;
-using static UnityEditor.Progress;
 
 public class ShopManager : MonoBehaviour
 {
@@ -20,15 +18,28 @@ public class ShopManager : MonoBehaviour
     
     public PlayerController playerController;
     public SelectManager selectManager;
-    
+
     private GameObject currentChild;
     private int currentCost;
     private bool isHolding;
 
     private void OnEnable()
     {
-        playerThrow = GameObject.FindWithTag("Player").GetComponent<ThrowObject>();
-        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        itemParent = GameObject.Find("PlayerItem");
+
+        GameObject selectManger = GameObject.Find("PlayerSelectManager");
+        if (selectManger != null)
+        {
+            selectManager = selectManger.GetComponent<SelectManager>();
+        }
+
+        GameObject playerObject = GameObject.FindWithTag("Player");
+        if (playerObject != null)
+        {
+            playerController = playerObject.GetComponent<PlayerController>();
+            playerThrow = playerObject.GetComponent<ThrowObject>();
+        }
+
         SpwanItems();
     }
 
@@ -56,11 +67,16 @@ public class ShopManager : MonoBehaviour
         {
             playerThrow.isShop = false;
         }
+
+        if(playerThrow.itemHolding != null)
+        {
+            currentHold = playerThrow.itemHolding;
+        }
     }
 
     public void SpwanItems()
     {
-        for(int i =0; i < canHoldItems.Length; i++)
+        for(int i = 0; i < canHoldItems.Length; i++)
         {
             GameObject spawnObject = Instantiate(canHoldItems[i], transforms[i]);
             spawnObject.transform.position = transforms[i].position;
@@ -100,10 +116,12 @@ public class ShopManager : MonoBehaviour
         if (playerController.systemValue.Amber > cost)
         {
             playerController.systemValue.Amber -= cost;
+            playerController.animator.SetBool("IsHold", false);
 
-            GameObject item = Instantiate(currentChild, itemParent.transform);
+            GameObject item = Instantiate(currentChild);
             item.GetComponent<BoxCollider2D>().enabled = true;
             item.transform.position = playerController.transform.position;
+
             DestroyHoldObject(currentHold);
             Debug.Log("Buy!");
         }
@@ -111,7 +129,8 @@ public class ShopManager : MonoBehaviour
 
     public void SteelObject()
     {
-        GameObject item = Instantiate(currentChild, itemParent.transform);
+        playerController.animator.SetBool("IsHold", false);
+        GameObject item = Instantiate(currentChild);
         item.GetComponent<BoxCollider2D>().enabled = true;
         item.transform.position = playerController.transform.position;
 
@@ -149,7 +168,7 @@ public class ShopManager : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            playerThrow.isShop = true;
+            Debug.Log("asddd");
         }
     }
 
@@ -162,7 +181,6 @@ public class ShopManager : MonoBehaviour
                 CheckChildObjects(currentHold);
                 SteelObject();
             }
-            playerThrow.isShop = false;
         }
     }
 }

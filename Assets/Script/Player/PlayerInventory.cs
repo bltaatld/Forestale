@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public GameObject Mention;
     public GameObject targetParent;
     public GameObject[] currentItem;
     public List<GameObject> inventory = new List<GameObject>();

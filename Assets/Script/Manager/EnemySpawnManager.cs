@@ -17,10 +17,8 @@ public class EnemySpawnManager : MonoBehaviour
         mainEnemyPositions.Clear();
         mainEnemyObject.Clear();
 
-        // Enemy 태그를 가지는 모든 오브젝트를 찾습니다.
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyMain");
 
-        // 각각의 적 오브젝트의 위치 정보를 리스트에 저장합니다.
         foreach (GameObject enemy in enemies)
         {
             mainEnemyObject.Add(enemy);
@@ -40,8 +38,27 @@ public class EnemySpawnManager : MonoBehaviour
 
         for (int i = 0; i < mainEnemies.Length; i++)
         {
-            mainEnemies[i].GetComponent<TE_EnemyChase>().Respawn();
-            mainEnemies[i].transform.position = mainEnemyPositions[i];
+            if(mainEnemies[i].GetComponent<TE_EnemyChase>())
+            {
+                mainEnemies[i].GetComponent<EnemyRespawn>().Respawn();
+                CheckEnemyPosition();
+                mainEnemies[i].transform.position = mainEnemyPositions[i];
+            }
+
+            if (mainEnemies[i].GetComponent<ShootEnemy>())
+            {
+                mainEnemies[i].GetComponent<EnemyRespawn>().Respawn();
+                CheckEnemyPosition();
+                mainEnemies[i].transform.position = mainEnemyPositions[i];
+            }
+
+            if (mainEnemies[i].GetComponent<ThrowEnemy>())
+            {
+                mainEnemies[i].GetComponent<EnemyRespawn>().Respawn();
+                CheckEnemyPosition();
+                mainEnemies[i].transform.position = mainEnemyPositions[i];
+            }
+
         }
     }
 }

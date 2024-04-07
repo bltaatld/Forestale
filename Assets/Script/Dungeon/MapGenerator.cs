@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 public class MapGenerator : MonoBehaviour
 {
-
+    public int currentFloor;
     public GameObject[] generatableRooms;
     public GameObject treasureRoom;
     public GameObject portalRoom;
     public GameObject shopRoom;
+    public GameObject restRoom;
     public int randomWalkCount;
     public int randomWalkLength;
 
@@ -18,8 +19,14 @@ public class MapGenerator : MonoBehaviour
 
     public Room[,] rooms;
 
-    private void Start()
+    public void ReGenerate()
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        currentFloor++;
         Generate();
     }
 
@@ -59,6 +66,10 @@ public class MapGenerator : MonoBehaviour
                     else if (currentPosition == specialRooms[2])
                     {
                         roomPrefab = shopRoom;
+                    }
+                    else if (currentPosition == specialRooms[3])
+                    {
+                        roomPrefab = restRoom;
                     }
                     else
                     {
@@ -123,7 +134,7 @@ public class MapGenerator : MonoBehaviour
         return sortedSpecialRooms;
     }
 
-    private void ConnectRoomDoors()
+    public void ConnectRoomDoors()
     {
         for (int x = 0; x < mapSize.x; x++)
         {
@@ -203,4 +214,6 @@ public class MapGenerator : MonoBehaviour
             list[swapIndex] = swapStorage;
         }
     }
+
+    public static MapGenerator GetInstance() => GameObject.FindObjectOfType<MapGenerator>(true);
 }

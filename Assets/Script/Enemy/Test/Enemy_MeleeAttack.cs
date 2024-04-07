@@ -20,7 +20,6 @@ public class Enemy_MeleeAttack : MonoBehaviour
     {
         Gizmos.color = gizmoColor;
 
-        // 이 콜라이더가 있다고 가정하고 그리기 위해 사용합니다.
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {

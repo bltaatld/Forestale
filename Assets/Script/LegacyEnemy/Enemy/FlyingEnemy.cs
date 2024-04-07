@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingEnemy : Enemy
+public class FlyingEnemy : MonoBehaviour
 {
+    [Header("Status")]
+    public EnemyStatus enemyStatus;
+    public int enemyHealth;
+    public int enemyDamage;
+
+    [Header("System")]
     public Transform player;
     public GameObject PlayerMove;
     public Rigidbody2D rigid;
-
-    [SerializeField] TriggerTracker Playertrigger;
+    public Animator animator;
+    public GameObject enemyObject;
+    public BoxCollider2D enemyCollider;
+    public ColorPulse colorPulse;
+    public TriggerTracker triggerTracker;
     
     public float bounceForce = 5f;
     public float currentmoveSpeed;
@@ -16,43 +25,85 @@ public class FlyingEnemy : Enemy
     public bool isHit;
     public bool isFoundPlayer;
 
-    protected override void Start()
+    private PlayerController playerStatus;
+
+    private void Start()
     {
-        base.Start();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         PlayerMove = GameObject.FindGameObjectWithTag("Player").gameObject;
+        playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        enemyHealth = enemyStatus.Health;
+        enemyDamage = enemyStatus.Damage;
+    }
+
+    private void Update()
+    {
+        if (enemyHealth <= 0)
+        {
+            animator.SetTrigger("IsDead");
+        }
+        if (triggerTracker.triggered)
+        {
+            isFoundPlayer = true;
+        }
+        else
+        {
+            isFoundPlayer = false;
+        }
     }
 
     void FixedUpdate()
     {
-        if (!isHit)
+        if (!isHit && isFoundPlayer)
         {
             Vector2 direction = (player.position - transform.position).normalized;
             rigid.AddForce(direction * currentmoveSpeed);
         }
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnCollisionEnter2D(collision);
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Attack"))
         {
-            Vector2 direction = (transform.position - player.position).normalized;
-            rigid.AddForce(direction * bounceForce, ForceMode2D.Impulse);
-            isHit = true;
+            if (enemyHealth > 0)
+            {
+                animator.SetTrigger("IsHit");
+                enemyHealth -= (int)playerStatus.damagedOutput.NormalDamage;
+                colorPulse.Pulse(new Color(100f / 255f, 190f / 255f, 255f / 255f), 0.5f);
+
+                Vector2 direction = (transform.position - player.position).normalized;
+                rigid.AddForce(direction * bounceForce, ForceMode2D.Impulse);
+
+                Debug.Log(gameObject + " damaged! " + "CurrentHealth = " + enemyHealth);
+            }
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
-            isHit = false;
+            Debug.Log(gameObject + "attacked!");
+            playerStatus.playerStatus.HP -= enemyDamage;
+            playerStatus.PlayerStatusCheck();
         }
     }
-
     private void OnDisable()
     {
         isFoundPlayer = false;
+    }
+
+    public void DisActive()
+    {
+        enemyObject.SetActive(false);
+    }
+
+    public void Respawn()
+    {
+        enemyHealth = enemyStatus.Health;
+        enemyDamage = enemyStatus.Damage;
+        enemyCollider.enabled = true;
+        enemyObject.SetActive(true);
     }
 }

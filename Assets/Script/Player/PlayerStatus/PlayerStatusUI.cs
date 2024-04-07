@@ -59,7 +59,7 @@ public class PlayerStatusUI : MonoBehaviour
     {
 
         //HP
-        heartResult = 250 + (100 * playerController.playerStatus.LV) / 2;
+        heartResult = 250 + (100 * playerController.playerStatus.LV);
         playerController.playerStatus.HP = ((int)heartResult / 100) * 2;
         playerController.playerMaxHP = ((int)heartResult / 100) * 2;
 

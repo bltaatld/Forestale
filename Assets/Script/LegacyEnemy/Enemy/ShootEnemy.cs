@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootEnemy : Enemy
+public class ShootEnemy : MonoBehaviour
 {
+    [Header("Status")]
+    public EnemyStatus enemyStatus;
+    public int enemyHealth;
+    public int enemyDamage;
+
+    [Header("System")]
     public Transform player;
     public GameObject PlayerMove;
     public Rigidbody2D rigid;
     public Animator anim;
+    public ColorPulse colorPulse;
 
     public float bounceForce = 5f;
     public float currentmoveSpeed;
@@ -23,11 +30,22 @@ public class ShootEnemy : Enemy
     public bool isFoundPlayer;
     public bool isBark;
 
-    protected override void Start()
+    [Header("Logic Component")]
+    public GameObject enemyObject;
+    public ItemDrop itemDrop;
+    public BoxCollider2D enemyCollider;
+    public TriggerTracker triggerTracker;
+
+    private PlayerController playerStatus;
+
+    private void Start()
     {
-        base.Start();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         PlayerMove = GameObject.FindGameObjectWithTag("Player").gameObject;
+        playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        enemyHealth = enemyStatus.Health;
+        enemyDamage = enemyStatus.Damage;
     }
 
     void FixedUpdate()
@@ -47,51 +65,103 @@ public class ShootEnemy : Enemy
             shootTime = 0f;
         }
 
-        // 플레이어 위치에 따라 스프라이트를 좌우로 뒤집기
         if (player.position.x < transform.position.x)
         {
-            // 플레이어가 상대적으로 왼쪽에 있는 경우
             GetComponent<SpriteRenderer>().flipX = false;
         }
         else
         {
-            // 플레이어가 상대적으로 오른쪽에 있는 경우
             GetComponent<SpriteRenderer>().flipX = true;
+        }
+
+        if (enemyHealth <= 0)
+        {
+            anim.SetTrigger("IsDead");
         }
     }
 
     public void FireProjectiles()
     {
-        Vector2 playerDirection = (player.position - transform.position).normalized;
-        float startAngle = -spreadAngle / 2f;
-        float angleIncrement = spreadAngle / (projectileCount - 1);
-
-        for (int i = 0; i < projectileCount; i++)
+        if (triggerTracker.triggered)
         {
-            float angle = startAngle + (angleIncrement * i);
-            Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
-            Vector2 direction = rotation * playerDirection;
+            Vector2 playerDirection = (player.position - transform.position).normalized;
+            float startAngle = -spreadAngle / 2f;
+            float angleIncrement = spreadAngle / (projectileCount - 1);
 
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-            projectileRb.velocity = direction * projectileSpeed;
+            for (int i = 0; i < projectileCount; i++)
+            {
+                float angle = startAngle + (angleIncrement * i);
+                Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
+                Vector2 direction = rotation * playerDirection;
+
+                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+                projectileRb.velocity = direction * projectileSpeed;
+            }
         }
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+
+    public void Respawn()
     {
-        base.OnCollisionEnter2D(collision);
+        enemyHealth = enemyStatus.Health;
+        enemyDamage = enemyStatus.Damage;
+        enemyCollider.enabled = true;
+        enemyObject.SetActive(true);
+    }
+
+    public void DeathEffect()
+    {
+        itemDrop.ItemInstantiate();
+        enemyCollider.enabled = false;
+        playerStatus.playerStatus.currentEXP += enemyStatus.Exp;
+
+        if (playerStatus.playerStatus.WP < playerStatus.playerMaxWP)
+        {
+            playerStatus.playerStatus.WP += enemyStatus.WP;
+        }
+    }
+
+    public void DisActive()
+    {
+        enemyObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Attack"))
+        {
+            if (enemyHealth > 0)
+            {
+                anim.SetTrigger("IsHit");
+                enemyHealth -= (int)playerStatus.damagedOutput.NormalDamage;
+                colorPulse.Pulse(new Color(1f, 0f, 0f), 0.5f);
+
+                Vector2 direction = (transform.position - player.position).normalized;
+                rigid.AddForce(direction * bounceForce, ForceMode2D.Impulse);
+
+                Debug.Log(gameObject + " damaged! " + "CurrentHealth = " + enemyHealth);
+            }
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.gameObject.CompareTag("Player"))
         {
             Vector2 direction = (transform.position - player.position).normalized;
             rigid.AddForce(direction * bounceForce, ForceMode2D.Impulse);
             isHit = true;
+
+            Debug.Log(gameObject + "attacked!");
+            playerStatus.playerStatus.HP -= enemyDamage;
+            playerStatus.PlayerStatusCheck();
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("MainCharacter"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             isHit = false;
         }

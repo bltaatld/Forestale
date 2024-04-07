@@ -36,9 +36,9 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -5668,11 +5668,11 @@ TextureImporter:
       tilemap_lake_236: -1068514650
       tilemap_lake_19: 1646106631
       tilemap_lake_168: -1035304452
-      tilemap_lake_92: 146166461
       tilemap_lake_138: 202221564
-      tilemap_lake_68: 1481935822
-      tilemap_lake_165: 258796983
       tilemap_lake_179: -643129707
+      tilemap_lake_68: 1481935822
+      tilemap_lake_92: 146166461
+      tilemap_lake_165: 258796983
       tilemap_lake_12: -1015430897
       tilemap_lake_37: -1679974833
       tilemap_lake_42: 1871828036
@@ -5763,32 +5763,32 @@ TextureImporter:
       tilemap_lake_52: 188179936
       tilemap_lake_164: -1786166567
       tilemap_lake_82: -2109960038
+      tilemap_lake_133: -1979938192
+      tilemap_lake_197: 423184913
       tilemap_lake_50: -482189223
       tilemap_lake_112: -1774253230
-      tilemap_lake_75: 11018705
-      tilemap_lake_133: -1979938192
       tilemap_lake_20: 1951196833
+      tilemap_lake_75: 11018705
       tilemap_lake_154: 1106886272
       tilemap_lake_145: 1714474784
-      tilemap_lake_88: 1868460946
-      tilemap_lake_197: 423184913
-      tilemap_lake_244: 923993833
       tilemap_lake_150: 1755489871
+      tilemap_lake_88: 1868460946
+      tilemap_lake_244: 923993833
+      tilemap_lake_188: -87628048
       tilemap_lake_258: -102865298
       tilemap_lake_43: 1437329228
-      tilemap_lake_143: 348288151
       tilemap_lake_226: 543999779
+      tilemap_lake_143: 348288151
       tilemap_lake_40: -483582715
-      tilemap_lake_107: 781179954
       tilemap_lake_119: -2138076823
+      tilemap_lake_107: 781179954
       tilemap_lake_98: -1389657439
       tilemap_lake_17: 308279611
-      tilemap_lake_45: 709485487
       tilemap_lake_212: 1773950700
-      tilemap_lake_91: -162803183
-      tilemap_lake_230: 194085148
       tilemap_lake_232: 1368479735
-      tilemap_lake_188: -87628048
+      tilemap_lake_45: 709485487
+      tilemap_lake_230: 194085148
+      tilemap_lake_91: -162803183
       tilemap_lake_120: -2015088972
       tilemap_lake_169: 973238256
       tilemap_lake_253: 1763363290

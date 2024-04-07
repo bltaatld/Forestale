@@ -16,6 +16,7 @@ public class BushObject : MonoBehaviour
             Health -= 1;
             if (Health <= 0)
             {
+                AudioManager.instance.PlaySound(5);
                 itemDrop.ItemInstantiate();
                 animator.SetTrigger("IsDead");
                 bushCollider.enabled = false;

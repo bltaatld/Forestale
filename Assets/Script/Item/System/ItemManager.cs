@@ -37,23 +37,7 @@ public class ItemManager : MonoBehaviour
 
     public void ActivateItem(ItemScriptableObject item, int currentItem)
     {
-        switch (item.name)
-        {
-            case "Debug":
-                Debug.Log("Debug Item Active");
-                break;
-            case "TestItem":
-                inventory.currentItem[currentItem] = item.LogicGameObject;
-                Debug.Log(currentItem);
-                break;
-            case "TestItem 1":
-                inventory.currentItem[currentItem] = item.LogicGameObject;
-                Debug.Log(currentItem);
-                break;
-            case "TestItem 2":
-                inventory.currentItem[currentItem] = item.LogicGameObject;
-                Debug.Log(currentItem);
-                break;
-        }
+        inventory.currentItem[currentItem] = item.LogicGameObject;
+        Debug.Log(currentItem);
     }
 }

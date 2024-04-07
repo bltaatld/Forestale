@@ -6,9 +6,17 @@ public class RestSite : MonoBehaviour
 {
     public bool isActive;
     public bool isClicked;
+    public bool isNeedRespawn;
     public GameObject statusUIObject;
     public EnemySpawnManager spawnManager;
     public PlayerStatusUI statusUI;
+
+    private void Awake()
+    {
+        statusUIObject = GameObject.Find("PlayeStatuslUI").transform.GetChild(0).gameObject;
+        statusUI = GameObject.Find("PlayeStatuslUI").GetComponent<PlayerStatusUI>();
+        spawnManager = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawnManager>();
+    }
 
     void Update()
     {
@@ -21,7 +29,11 @@ public class RestSite : MonoBehaviour
                 Time.timeScale = 1f;
                 statusUIObject.SetActive(false);
                 statusUI.healthHeartBar.DrawHearts();
-                spawnManager.RespawnEnemy();
+
+                if (isNeedRespawn)
+                {
+                    spawnManager.RespawnEnemy();
+                }
             }
             else
             {

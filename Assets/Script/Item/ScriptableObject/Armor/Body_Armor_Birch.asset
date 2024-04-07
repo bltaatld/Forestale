@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e3b5b51831f47a438301805901db8f5, type: 3}
+  m_Name: Body_Armor_Birch
+  m_EditorClassIdentifier: 
+  ID: 4
+  cost: 45
+  icon: {fileID: 21300000, guid: 8029e068857116842a62a0ce195fa889, type: 3}
+  preview: {fileID: 21300000, guid: 8029e068857116842a62a0ce195fa889, type: 3}
+  LogicGameObject: {fileID: 0}
+  itemName: "\uADF8\uC744\uB9B0 \uC790\uC791 \uB098\uBB34 \uAC11\uC637"
+  description: "\uC501\uC4F8\uD55C \uB0C4\uC0C8\uC640 \uD568\uAED8 \uC2DC\uB044\uB7FD\uAC8C
+    \uD0C0\uB4E4\uC5B4\uAC04\uB2E4."
+  itemStatus:
+    STR: 0
+    DEX: 0
+    INT: 0
+    FOC: 0
+  itemExtraStatus:
+    Power: 0
+    TrueDamage: 0
+    IgnoreAginst: 0
+    AttackSpeed: 0
+    Defense: 15
+    Agility: 0
+    Magic: 0
+    TrueMagic: 0

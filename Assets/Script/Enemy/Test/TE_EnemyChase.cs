@@ -1,78 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TE_EnemyChase : MonoBehaviour
 {
     [Header("Status")]
     public EnemyStatus enemyStatus;
-    public int m_enemyHealth;
-    public int m_enemyDamage;
+    public int enemyHealth;
+    public int enemyDamage;
 
     [Header("Logic Component")]
     public GameObject enemyObject;
     public Animator animator;
     public BoxCollider2D enemyCollider;
     public EnemyChase enemyChase;
-    public PlayerController Player;
+    public PlayerController playerController;
+    public Rigidbody2D rigid;
     public ItemDrop itemDrop;
     public float enemyCoolDown = 2.0f;
+    public float bounceForce = 2.0f;
+
+    private Transform player;
 
     private void Start()
     {
-        m_enemyHealth = enemyStatus.Health;
-        m_enemyDamage = enemyStatus.Damage;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        enemyHealth = enemyStatus.Health;
+        enemyDamage = enemyStatus.Damage;
     }
 
     private void Update()
     {
-        if(m_enemyHealth <= 0)
+        if(enemyHealth <= 0)
         {
             animator.SetTrigger("IsDead");
         }
-    }
-
-    public void DeathEffect()
-    {
-        itemDrop.ItemInstantiate();
-        enemyCollider.enabled = false;
-        enemyChase.enabled = false;
-        Player.playerStatus.currentEXP += enemyStatus.Exp;
-
-        if (Player.playerStatus.WP < Player.playerMaxWP)
-        {
-            Player.playerStatus.WP += enemyStatus.WP;
-        }
-    }
-
-    public void DisActive()
-    {
-        enemyObject.SetActive(false);
-    }
-
-    public void Respawn()
-    {
-        m_enemyHealth = enemyStatus.Health;
-        m_enemyDamage = enemyStatus.Damage;
-        enemyCollider.enabled = true;
-        enemyChase.enabled = true;
-        enemyChase.isStop = false;
-        enemyObject.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Attack"))
         {
-            if (m_enemyHealth > 0 && !enemyChase.isStop)
+            if (enemyHealth > 0 && !enemyChase.isStop)
             {
+                AudioManager.instance.PlaySound(7);
                 StartCoroutine(HitCooldown());
                 animator.SetTrigger("IsHit");
-                m_enemyHealth -= (int)Player.damagedOutput.NormalDamage;
-                Debug.Log(gameObject + " damaged! " + "CurrentHealth= " + m_enemyHealth);
+                enemyHealth -= (int)playerController.damagedOutput.NormalDamage;
+
+                Vector2 direction = (transform.position - player.position).normalized;
+                rigid.AddForce(direction * bounceForce, ForceMode2D.Impulse);
             }
         }
     }
+
 
     IEnumerator HitCooldown()
     {
@@ -85,9 +68,15 @@ public class TE_EnemyChase : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            Debug.Log(gameObject + "attacked!");
-            Player.playerStatus.HP -= m_enemyDamage;
-            Player.PlayerStatusCheck();
+            if (!enemyChase.isStop)
+            {
+                StartCoroutine(HitCooldown());
+                playerController.playerStatus.HP -= enemyDamage;
+                playerController.PlayerStatusCheck();
+
+                Vector2 direction = (transform.position - player.position).normalized;
+                rigid.AddForce(direction * bounceForce, ForceMode2D.Impulse);
+            }
         }
     }
 }

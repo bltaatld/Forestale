@@ -53,7 +53,25 @@ public class SkillManager : MonoBehaviour
             case "Warrior_Swipe":
                 images[imageOrder].sprite = skill.Icon;
                 break;
+            case "Warrior_Whip":
+                images[imageOrder].sprite = skill.Icon;
+                break;
             case "Archer_Field":
+                images[imageOrder].sprite = skill.Icon;
+                break;
+            case "Archer_Arrow":
+                images[imageOrder].sprite = skill.Icon;
+                break;
+            case "Magic_Fire":
+                images[imageOrder].sprite = skill.Icon;
+                break;
+            case "Magic_Shot":
+                images[imageOrder].sprite = skill.Icon;
+                break;
+            case "Rogue_Dart":
+                images[imageOrder].sprite = skill.Icon;
+                break;
+            case "Rogue_SeedDart":
                 images[imageOrder].sprite = skill.Icon;
                 break;
         }
@@ -82,6 +100,60 @@ public class SkillManager : MonoBehaviour
                         player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
                         GameObject archerField = Instantiate(skill.LogicGameObject);
                         archerField.transform.position = player.transform.position;
+                        Debug.Log(skill.Name);
+                    }
+                    break;
+                case "Magic_Shot":
+                    if (player.GetComponent<PlayerController>().playerStatus.MP >= skill.manaCost)
+                    {
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        Instantiate(skill.LogicGameObject, player.transform);
+                        Debug.Log(skill.Name);
+                    }
+                    break;
+                case "Magic_Fire":
+                    if (player.GetComponent<PlayerController>().playerStatus.MP >= skill.manaCost)
+                    {
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        Instantiate(skill.LogicGameObject, player.transform);
+                        Debug.Log(skill.Name);
+                    }
+                    break;
+                case "Rogue_Dart":
+                    if (player.GetComponent<PlayerController>().playerStatus.MP >= skill.manaCost)
+                    {
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        Instantiate(skill.LogicGameObject, player.transform);
+                        Debug.Log(skill.Name);
+                    }
+                    break;
+                case "Rogue_SeedDart":
+                    if (player.GetComponent<PlayerController>().playerStatus.MP >= skill.manaCost)
+                    {
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        Instantiate(skill.LogicGameObject, player.transform);
+                        Debug.Log(skill.Name);
+                    }
+                    break;
+                case "Warrior_Whip":
+                    if (player.GetComponent<PlayerController>().playerStatus.MP >= skill.manaCost)
+                    {
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        Instantiate(skill.LogicGameObject, player.transform);
+                        Debug.Log(skill.Name);
+                    }
+                    break;
+                case "Archer_Arrow":
+                    if (player.GetComponent<PlayerController>().playerStatus.MP >= skill.manaCost)
+                    {
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        player.GetComponent<PlayerController>().playerStatus.MP -= skill.manaCost;
+                        Instantiate(skill.LogicGameObject, player.transform);
                         Debug.Log(skill.Name);
                     }
                     break;

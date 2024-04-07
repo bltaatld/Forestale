@@ -2,33 +2,63 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowEnemy : Enemy
+public class ThrowEnemy : MonoBehaviour
 {
-    public Transform player;
-    public GameObject PlayerMove;
+    [Header("Status")]
+    public EnemyStatus enemyStatus;
+    public int enemyHealth;
+    public int enemyDamage;
+
+    [Header("System")]
     public GameObject prefabToInstantiate;
     public Rigidbody2D rigid;
+    public ColorPulse colorPulse;
+    public Animator animator;
+    public TriggerTracker triggerTracker;
 
+    [Header("SpawnValue")]
     public float bounceForce = 5f;
     public float instantiateDelay = 3f;
-    private float instantiateTimer = 0f;
     public float spawnRadius = 5f;
 
-    public bool isHit;
-    public bool isFoundPlayer;
+    private float instantiateTimer = 0f;
+    private bool isFoundPlayer;
+    private PlayerController playerStatus;
+    private GameObject PlayerMove;
+    private Transform player;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         PlayerMove = GameObject.FindGameObjectWithTag("Player").gameObject;
+        playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        enemyHealth = enemyStatus.Health;
+        enemyDamage = enemyStatus.Damage;
+    }
+
+    private void Update()
+    {
+        if (enemyHealth <= 0)
+        {
+            animator.SetTrigger("IsDead");
+        }
+
+        if(triggerTracker.triggered)
+        {
+            isFoundPlayer = true;
+        }
+        else
+        {
+            isFoundPlayer = false;
+        }
     }
 
     void FixedUpdate()
     {
         instantiateTimer += Time.deltaTime;
 
-        if (instantiateTimer >= instantiateDelay)
+        if (instantiateTimer >= instantiateDelay && isFoundPlayer)
         {
             InstantiatePrefabInRandomPosition();
             instantiateTimer = 0f;
@@ -37,28 +67,35 @@ public class ThrowEnemy : Enemy
 
     private void InstantiatePrefabInRandomPosition()
     {
-        // ÇÁ¸®ÆÕ »ý¼º
         Instantiate(prefabToInstantiate, PlayerMove.transform.position, Quaternion.identity);
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision);
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
-            Vector2 direction = (transform.position - player.position).normalized;
-            rigid.AddForce(direction * bounceForce, ForceMode2D.Impulse);
-            isHit = true;
+            Debug.Log(gameObject + "attacked!");
+            playerStatus.playerStatus.HP -= enemyDamage;
+            playerStatus.PlayerStatusCheck();
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Attack"))
         {
-            isHit = false;
+            if (enemyHealth > 0)
+            {
+                animator.SetTrigger("IsHit");
+                enemyHealth -= (int)playerStatus.damagedOutput.NormalDamage;
+                colorPulse.Pulse(new Color(1f, 0f, 0f), 0.5f);
+
+                Vector2 direction = (transform.position - player.position).normalized;
+                rigid.AddForce(direction * bounceForce, ForceMode2D.Impulse);
+            }
         }
     }
+
 
     private void OnDisable()
     {

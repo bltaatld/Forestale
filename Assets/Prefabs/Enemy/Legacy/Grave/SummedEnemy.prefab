@@ -1,5 +1,77 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2115171223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2115171224}
+  - component: {fileID: 2115171226}
+  - component: {fileID: 2115171225}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2115171224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115171223}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7168060062177840639}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2115171226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115171223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95140e618f7ef3f4796b257f147558d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainTag: Player
+--- !u!61 &2115171225
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115171223}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10}
+  m_EdgeRadius: 0
 --- !u!1 &7168060062177840637
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,10 +87,9 @@ GameObject:
   - component: {fileID: 5377826141691914188}
   - component: {fileID: 2846960257789484765}
   - component: {fileID: 2160208038837400730}
-  - component: {fileID: 3392346194562088810}
   m_Layer: 0
   m_Name: SummedEnemy
-  m_TagString: Enemy
+  m_TagString: EnemyMain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +105,8 @@ Transform:
   m_LocalPosition: {x: -4.06, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2115171224}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -181,28 +253,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29a4e29a91550245a57a184c930120b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  minCoins: 0
-  maxCoins: 0
-  deathParticle: {fileID: 4480551625138150364, guid: 98dde16755c94bb958ff9f980249f3b9, type: 3}
+  enemyStatus:
+    Health: 1
+    Damage: 5
+    Exp: 2
+    WP: 10
+  enemyHealth: 0
+  enemyDamage: 0
   player: {fileID: 0}
   PlayerMove: {fileID: 0}
   rigid: {fileID: 7168060062177840577}
-  Playertrigger: {fileID: 3392346194562088810}
+  animator: {fileID: 5377826141691914188}
+  enemyObject: {fileID: 7168060062177840637}
+  enemyCollider: {fileID: 7168060062177840579}
+  colorPulse: {fileID: 2846960257789484765}
+  triggerTracker: {fileID: 2115171226}
   bounceForce: 3
   currentmoveSpeed: 10
   isHit: 0
   isFoundPlayer: 0
---- !u!114 &3392346194562088810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7168060062177840637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95140e618f7ef3f4796b257f147558d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  terrainTag: Player

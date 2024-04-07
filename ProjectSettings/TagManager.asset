@@ -14,6 +14,10 @@ TagManager:
   - PlayerExtra
   - Seed
   - Rope
+  - Room
+  - Camera
+  - Shop
+  - Map
   layers:
   - Default
   - TransparentFX
