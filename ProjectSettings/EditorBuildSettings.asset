@@ -6,9 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/CutScene.unity
+    path: Assets/Scenes/DemoBuild/CutScene.unity
     guid: a2718ae46f1025e46b2fc8e38c477b05
   - enabled: 1
-    path: Assets/Scenes/PrototypeScene.unity
+    path: Assets/Scenes/DemoBuild/PrototypeScene.unity
     guid: be79469f7a26ade4b9d70bfa3f983034
+  - enabled: 1
+    path: Assets/Scenes/DemoBuild/IntroScene.unity
+    guid: ad9e1c0dc90af374f89912c64f7f9c54
+  - enabled: 1
+    path: Assets/Scenes/DemoBuild/LoadingScene.unity
+    guid: c40636795e53b2642b6ca7fdd306e2df
+  - enabled: 1
+    path: Assets/Scenes/DemoBuild/EndScene.unity
+    guid: a77afd184d0d22440bda192324cd8e38
+  - enabled: 1
+    path: Assets/Scenes/DemoBuild/ExpoDemo.unity
+    guid: 3ff50e9b608b19f40a207569f4d8cbf0
   m_configObjects: {}

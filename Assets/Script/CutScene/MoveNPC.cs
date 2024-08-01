@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class MoveNPC : MonoBehaviour
 {
-    public bool isNotLoop;
+    public Transform playerTransform;
     public Dialogue dialogue;
     public Animator animator;
     public Vector3[] waypoints;
-    public float speed = 5f;
-    private int currentWaypointIndex = 0;
     private Vector3 startPosition;
+    private int currentWaypointIndex = 0;
+    public float speed = 5f;
     public float hInput;
     public float vInput;
 
@@ -22,8 +22,15 @@ public class MoveNPC : MonoBehaviour
 
     void Update()
     {
-        if (!dialogue.isTalk)
+        if(dialogue.triggerActive)
         {
+            animator.SetBool("isWatch", true);
+            WatchPlayer();
+        }
+
+        if (!dialogue.triggerActive)
+        {
+            animator.SetBool("isWatch", false);
             Vector3 targetPosition = waypoints[currentWaypointIndex];
             float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
 
@@ -68,5 +75,21 @@ public class MoveNPC : MonoBehaviour
         }
         if (waypoints.Length > 1)
             Debug.DrawLine(waypoints[waypoints.Length - 1], waypoints[0], Color.blue);
+    }
+
+    void WatchPlayer()
+    {
+        Vector3 relativePosition = playerTransform.position - transform.position;
+
+        if (Mathf.Abs(relativePosition.x) > Mathf.Abs(relativePosition.y))
+        {
+            animator.SetInteger("watchX", (int)Mathf.Sign(relativePosition.x));
+            animator.SetInteger("watchY", 0);
+        }
+        else
+        {
+            animator.SetInteger("watchY", (int)Mathf.Sign(relativePosition.y));
+            animator.SetInteger("watchX", 0);
+        }
     }
 }

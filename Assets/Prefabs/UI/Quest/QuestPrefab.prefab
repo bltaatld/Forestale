@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Find "Object"  0/2
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c1925aa54a46f854cbef6044ada30ccd, type: 2}
+  m_sharedMaterial: {fileID: -2331945086045752464, guid: c1925aa54a46f854cbef6044ada30ccd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -514,8 +514,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Quest Title
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c1925aa54a46f854cbef6044ada30ccd, type: 2}
+  m_sharedMaterial: {fileID: -2331945086045752464, guid: c1925aa54a46f854cbef6044ada30ccd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -649,8 +649,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Type
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c1925aa54a46f854cbef6044ada30ccd, type: 2}
+  m_sharedMaterial: {fileID: -2331945086045752464, guid: c1925aa54a46f854cbef6044ada30ccd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -753,7 +753,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 658.4679, y: -5}
+  m_AnchoredPosition: {x: -614, y: -121}
   m_SizeDelta: {x: 614.3699, y: 365.9774}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9117539408104633258
@@ -862,8 +862,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c1925aa54a46f854cbef6044ada30ccd, type: 2}
+  m_sharedMaterial: {fileID: -2331945086045752464, guid: c1925aa54a46f854cbef6044ada30ccd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

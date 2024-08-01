@@ -52,7 +52,8 @@ public class PlayerStatusUI : MonoBehaviour
 
     public void ResetLP()
     {
-        currentLP = playerController.playerStatus.LV;
+        //currentLP = playerController.playerStatus.LV;
+        currentLP = 4;
     }
 
     public void CaculateStatus()
@@ -149,9 +150,10 @@ public class PlayerStatusUI : MonoBehaviour
 
             //Agility Upgrade
             playerController.extraPlayerStatus.Agility += 1;
-            playerController.maxMoveSpeed += 0.1f;
+            playerController.moveSpeed += 2f;
+            playerController.maxMoveSpeed += 2f;
  
-            playerController.extraPlayerStatus.TrueDamage += 3;
+            //playerController.extraPlayerStatus.TrueDamage += 3;
             currentLP -= 1;
         }
         else

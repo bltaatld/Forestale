@@ -48,6 +48,7 @@ public class RestSite : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             statusUI.CaculateStatus();
+            statusUI.healthHeartBar.DrawHearts();
             isActive = true;
         }
     }

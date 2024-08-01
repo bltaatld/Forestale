@@ -17,6 +17,7 @@ public class Item_Amber : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            AudioManager.instance.PlaySound(13);
             player.systemValue.Amber += 1;
             anim.SetTrigger("isActive");
         }

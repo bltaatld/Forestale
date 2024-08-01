@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 	public float rollSpeed = 10f;
 	public Rigidbody2D rb;
 	public Animator animator; // Animator 컴포넌트 참조
+	public Animator instantAnimator; // Animator 컴포넌트 참조
 	public Vector3 moveDirection;
 	public bool canMove;
 	public GameObject levelUpEffect;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
 	public SystemValue systemValue;
 	public SkillUI skillUI;
 	public PlayerStatusUI statusUI;
+	public EnemySpawnManager spawnManager;
 
 	public static event Action OnPlayerDamaged;
 
@@ -53,11 +55,23 @@ public class PlayerController : MonoBehaviour
 
 		if (playerStatus.HP <= 0)
 		{
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            AudioManager.instance.PlaySound(11);
+            AudioManager.instance.PlaySound(12);
+            instantAnimator.SetTrigger("DeathEffect");
         }
 
 		CheckLevelUp();
 	}
+
+	public void PlayerDeadCheck()
+	{
+        SaveManager.instance.currentPositionLoad(transform);
+        playerStatus.HP = playerMaxHP;
+        playerStatus.MP = (int)playerMaxMP;
+        playerStatus.WP = (int)playerMaxWP;
+        spawnManager.RespawnEnemy();
+        PlayerStatusCheck();
+    }
 
 	public void PlayerStatusCheck()
 	{
@@ -66,7 +80,7 @@ public class PlayerController : MonoBehaviour
 			OnPlayerDamaged?.Invoke();
             AudioManager.instance.PlaySound(2);
             animator.SetTrigger("IsDamaged");
-		}
+        }
 	}
 
 	void FixedUpdate()

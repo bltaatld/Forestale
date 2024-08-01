@@ -20,6 +20,8 @@ public class ThrowEnemy : MonoBehaviour
     public float bounceForce = 5f;
     public float instantiateDelay = 3f;
     public float spawnRadius = 5f;
+    public float rangeRadius = 5f;
+    private bool playerInRange = false;
 
     private float instantiateTimer = 0f;
     private bool isFoundPlayer;
@@ -44,11 +46,14 @@ public class ThrowEnemy : MonoBehaviour
             animator.SetTrigger("IsDead");
         }
 
-        if(triggerTracker.triggered)
+        float distance = Vector2.Distance(transform.position, player.transform.position);
+        bool playerCurrentlyInRange = distance <= rangeRadius;
+
+        if (!playerInRange && playerCurrentlyInRange)
         {
             isFoundPlayer = true;
         }
-        else
+        else if (playerInRange && !playerCurrentlyInRange)
         {
             isFoundPlayer = false;
         }
@@ -94,6 +99,12 @@ public class ThrowEnemy : MonoBehaviour
                 rigid.AddForce(direction * bounceForce, ForceMode2D.Impulse);
             }
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, rangeRadius);
     }
 
 

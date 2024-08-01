@@ -18,6 +18,7 @@ TagManager:
   - Camera
   - Shop
   - Map
+  - DamageField
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - UI
   - Rock
   - Rope
-  - 
+  - EnemyOwl
   - 
   - 
   - 

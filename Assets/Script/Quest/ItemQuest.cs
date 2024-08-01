@@ -78,6 +78,7 @@ public class ItemQuest : MonoBehaviour
         {
             if (!isFirst)
             {
+                startDialogue.triggerActive = false;
                 startDialogue.enabled = false;
                 questManager.quests.Add(questScript);
                 questManager.itemQuests.Add(self);

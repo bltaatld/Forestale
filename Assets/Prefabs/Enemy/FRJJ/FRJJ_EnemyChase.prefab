@@ -46,14 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 6910955607979625501}
-  animator: {fileID: 0}
   moveSpeed: 1
-  chaseSpeedMultiplier: 2
-  randomMoveInterval: 6
+  chaseSpeedMultiplier: 3
+  randomMoveInterval: 3
   isStop: 0
   isDitected: 0
   detectionRadius: 4
-  randomMoveRangeRadius: 1.5
+  randomMoveRangeRadius: 3
   player: {fileID: 0}
   randomMoveTimer: 0
   randomMovePosition: {x: 0, y: 0}
@@ -67,9 +66,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6910955606880641060}
   - component: {fileID: 6910955606880641061}
+  - component: {fileID: 1505126896}
+  - component: {fileID: 1505126897}
   m_Layer: 0
   m_Name: AttackRange
-  m_TagString: Untagged
+  m_TagString: EnemyMain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,6 +142,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1505126896
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6910955606880641063}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &1505126897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6910955606880641063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960c6510c74a326459cefe454dd19fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDamage: 2
 --- !u!1 &6910955607016094910
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +272,7 @@ GameObject:
   - component: {fileID: 6910955607979625476}
   - component: {fileID: 6910955607979625477}
   - component: {fileID: 2065808910284570793}
+  - component: {fileID: 73968753}
   m_Layer: 0
   m_Name: FRJJ
   m_TagString: EnemyMain
@@ -379,8 +410,8 @@ MonoBehaviour:
   anim: {fileID: 6910955607979625496}
   player: {fileID: 0}
   chase: {fileID: 6910955606300924695}
-  detectionRadius: 2
-  attackCoolDown: 0.1
+  detectionRadius: 2.26
+  attackCoolDown: 0.5
   gizmoColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &6910955607979625479
 MonoBehaviour:
@@ -410,7 +441,6 @@ MonoBehaviour:
   itemDrop: {fileID: 6910955607979625476}
   enemyCoolDown: 2
   bounceForce: 0.2
-  isInRoom: 0
 --- !u!114 &6910955607979625476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +494,7 @@ MonoBehaviour:
   enemyChase: {fileID: 6910955606300924695}
   playerController: {fileID: 0}
   itemDrop: {fileID: 6910955607979625476}
+  respawnStop: 0
   isNeedChase: 1
   enemyStatus:
     Health: 0
@@ -472,3 +503,16 @@ MonoBehaviour:
     WP: 0
   m_enemyHealth: 0
   m_enemyDamage: 0
+--- !u!114 &73968753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6910955607979625501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014bd4c3052f59c4eb995a80f473045d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6910955607979625496}

@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  projectilePrefab: {fileID: 3836744775318250343, guid: 678e6c14fe2a6c94fb059e1589224582, type: 3}
+  projectilePrefab: {fileID: 3836744775318250343, guid: 907d7a59809b6ed4db6af24a5302a799, type: 3}
   projectileSpeed: 5
   spreadAngle: 30
   projectileCount: 1

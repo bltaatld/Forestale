@@ -63,11 +63,16 @@ public class SkillUI : MonoBehaviour
 
     public void ResetSP()
     {
-        currentSP = playerController.playerStatus.LV;
+        //currentSP = playerController.playerStatus.LV;
+        currentSP = 8;
     }
 
     private void Update()
     {
         SetTextSP();
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

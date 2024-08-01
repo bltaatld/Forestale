@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public Animator animator;
     public GameObject Mention;
     public GameObject targetParent;
     public GameObject[] currentItem;
@@ -42,6 +43,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (other.CompareTag("Item"))
         {
+            animator.SetTrigger("IsGetItem");
             AddToInventory(other.gameObject);
         }
     }

@@ -16,5 +16,5 @@ MonoBehaviour:
   LogicGameObject: {fileID: 1972177639822785734, guid: f813cb23b723bb94c83bb3e24b15fb0c, type: 3}
   Name: Magic_Fire
   CoolDown: 2
-  manaCost: 50
+  manaCost: 30
   Type: Active

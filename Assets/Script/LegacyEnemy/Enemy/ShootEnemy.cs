@@ -15,6 +15,7 @@ public class ShootEnemy : MonoBehaviour
     public Rigidbody2D rigid;
     public Animator anim;
     public ColorPulse colorPulse;
+    public string targetLayerName = "EnemyOwl";
 
     public float bounceForce = 5f;
     public float currentmoveSpeed;
@@ -27,8 +28,12 @@ public class ShootEnemy : MonoBehaviour
     public float ShootCoolDown;
 
     public bool isHit;
+    public bool isMove;
     public bool isFoundPlayer;
     public bool isBark;
+
+    public float rangeRadius = 5f;
+    private bool playerInRange = false;
 
     [Header("Logic Component")]
     public GameObject enemyObject;
@@ -50,7 +55,23 @@ public class ShootEnemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isHit)
+        float distance = Vector2.Distance(transform.position, player.transform.position);
+        bool playerCurrentlyInRange = distance <= rangeRadius;
+
+        if (!playerInRange && playerCurrentlyInRange)
+        {
+            Debug.Log("Asdasd");
+            isMove = true;
+        }
+        else if (playerInRange && !playerCurrentlyInRange)
+        {
+            isMove = false;
+        }
+
+        playerInRange = playerCurrentlyInRange;
+
+
+        if (isMove)
         {
             Vector2 direction = (player.position - transform.position).normalized;
             rigid.AddForce(direction * currentmoveSpeed);
@@ -58,7 +79,7 @@ public class ShootEnemy : MonoBehaviour
 
         shootTime += Time.deltaTime;
 
-        if (shootTime >= ShootCoolDown)
+        if (shootTime >= ShootCoolDown && isMove)
         {
             anim.SetTrigger("IsShoot");
             FireProjectiles();
@@ -82,23 +103,27 @@ public class ShootEnemy : MonoBehaviour
 
     public void FireProjectiles()
     {
-        if (triggerTracker.triggered)
+        isMove = true;
+        Vector2 playerDirection = (player.position - transform.position).normalized;
+        float startAngle = -spreadAngle / 2f;
+        float angleIncrement = spreadAngle / (projectileCount - 1);
+
+        for (int i = 0; i < projectileCount; i++)
         {
-            Vector2 playerDirection = (player.position - transform.position).normalized;
-            float startAngle = -spreadAngle / 2f;
-            float angleIncrement = spreadAngle / (projectileCount - 1);
+            float angle = startAngle + (angleIncrement * i);
+            Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
+            Vector2 direction = rotation * playerDirection;
 
-            for (int i = 0; i < projectileCount; i++)
-            {
-                float angle = startAngle + (angleIncrement * i);
-                Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
-                Vector2 direction = rotation * playerDirection;
-
-                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-                Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-                projectileRb.velocity = direction * projectileSpeed;
-            }
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+            projectileRb.velocity = direction * projectileSpeed;
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, rangeRadius);
     }
 
 

@@ -16,5 +16,5 @@ MonoBehaviour:
   LogicGameObject: {fileID: 2908364098266934885, guid: 51f9e7191c2563847b3436ca6a9f21a8, type: 3}
   Name: Rogue_SeedDart
   CoolDown: 2
-  manaCost: 30
+  manaCost: 20
   Type: Active

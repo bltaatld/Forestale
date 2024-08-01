@@ -56,11 +56,16 @@ public class CutSceneEndTalk : MonoBehaviour
                 {
                     activeTrigger.SetActive(true);
                 }
-                if (shakeTarget != null)
+
+                if(shakeTarget != null)
                 {
                     HideShake();
                 }
-                DisapperTarget.SetActive(false);
+                
+                if(DisapperTarget != null)
+                {
+                    DisapperTarget.SetActive(false);
+                }
             }
         }
     }

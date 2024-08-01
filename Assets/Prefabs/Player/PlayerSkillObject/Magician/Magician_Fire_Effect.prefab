@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85dbb7545edab4540a88d65d83ab2254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 3836744775318250343, guid: 678e6c14fe2a6c94fb059e1589224582, type: 3}
+  prefabToSpawn: {fileID: 3836744775318250343, guid: 0a8eab7f1898eed47b1b154253147de9, type: 3}
   spawnRadius: 0.5
   targetTag: EnemyMain
 --- !u!58 &1972177639822785722

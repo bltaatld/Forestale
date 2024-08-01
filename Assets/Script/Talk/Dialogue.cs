@@ -103,6 +103,7 @@ public class Dialogue : MonoBehaviour
         for (int i = 0; i < lineLength; i++)
         {
             textComponent.text += lines[index][i];
+            AudioManager.instance.PlaySound(13);
             if (i == lineLength - 1)
             {
                 dialgoueMark.gameObject.SetActive(true);

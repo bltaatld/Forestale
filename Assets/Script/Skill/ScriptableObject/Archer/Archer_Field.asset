@@ -16,5 +16,5 @@ MonoBehaviour:
   LogicGameObject: {fileID: 7417107907709515939, guid: 470ba77eb7b1f0541a85739f064d13a0, type: 3}
   Name: Archer_Field
   CoolDown: 2
-  manaCost: 10
+  manaCost: 50
   Type: Active

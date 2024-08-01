@@ -68,7 +68,7 @@ public class TE_EnemyChase : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            if (!enemyChase.isStop)
+            if (!enemyChase.isStop && playerController.playerStatus.HP > 0)
             {
                 StartCoroutine(HitCooldown());
                 playerController.playerStatus.HP -= enemyDamage;

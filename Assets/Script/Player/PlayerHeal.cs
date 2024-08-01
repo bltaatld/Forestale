@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerHeal : MonoBehaviour
 {
+    public GameObject healEffect;
     public Image progressBar;
     public Sprite sprite0Percent;
     public Sprite sprite20Percent;
     public Sprite sprite50Percent;
     public Sprite sprite100Percent;
+    public float maxWP;
 
     public Animator animator;
     public PlayerController playerController;
@@ -47,12 +49,14 @@ public class PlayerHeal : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             buttonPressed = true;
+            healEffect.SetActive(true);
             StartCoroutine(DebugMessageEverySecond());
         }
 
         // 특정 버튼이 떼어졌을 때
         if (Input.GetKeyUp(KeyCode.V))
         {
+            healEffect.SetActive(false);
             buttonPressed = false;
             StopAllCoroutines();
         }
@@ -62,14 +66,26 @@ public class PlayerHeal : MonoBehaviour
     {
         while (buttonPressed)
         {
+            AudioManager.instance.PlaySound(14);
             yield return new WaitForSeconds(1f);
             if (playerController.playerMaxHP > playerController.playerStatus.HP && playerController.playerStatus.WP > 0)
             {
                 playerController.playerStatus.HP += 1f;
                 playerController.playerStatus.WP -= 50;
+                playerController.playerStatus.WP += playerController.playerStatus.FOC * 5;
                 statusUI.healthHeartBar.DrawHearts();
                 Debug.Log("Heal!");
             }
+
+            if (playerController.playerMaxMP > playerController.playerStatus.MP && playerController.playerStatus.WP > 0)
+            {
+                playerController.playerStatus.MP += 30;
+                playerController.playerStatus.MP += playerController.playerStatus.INT * 5;
+                playerController.playerStatus.WP -= 10;
+                statusUI.healthHeartBar.DrawHearts();
+                Debug.Log("Mana Heal!");
+            }
+
             Debug.Log("1 second passed!");
         }
     }
